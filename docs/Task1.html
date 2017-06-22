@@ -1,0 +1,5064 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Liming Wang" />
+  <title>Phase II Task1</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="Task1_files/reveal.js-3.3.0/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="Task1_files/reveal.js-3.3.0/css/theme/night.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'Task1_files/reveal.js-3.3.0/css/print/pdf.css' : 'Task1_files/reveal.js-3.3.0/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="Task1_files/reveal.js-3.3.0/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Phase II Task1</h1>
+    <h2 class="author">Liming Wang</h2>
+    <h3 class="date">8/30/2016</h3>
+</section>
+
+<section id="outline" class="slide level2">
+<h1>Outline</h1>
+<ul>
+<li>Initial assessment of sampling bias</li>
+<li>Weighting Scheme
+<ul>
+<li>Weight Factors: County * Housing Type * Tenure * Age Group</li>
+<li>Weight Factors: County * Housing Type * Tenure * Age Group * Income Group</li>
+</ul></li>
+<li>Weights
+<ul>
+<li>vs 2014 1-year ACS PUMS</li>
+<li>vs 2013 1-year ACS PUMS</li>
+</ul></li>
+<li>Next steps</li>
+</ul>
+</section>
+<section><section id="initial-assessment-of-sampling-bias" class="titleslide slide level1"><h1>Initial Assessment of Sampling Bias</h1></section><section id="households-by-county-source-vs-acs" class="slide level2">
+<h1>% Households by County (Source vs ACS)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">County</th>
+<th style="text-align: right;">Opt-in</th>
+<th style="text-align: right;">Panel</th>
+<th style="text-align: right;">Recruited</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Clackms</td>
+<td style="text-align: right;">13.93</td>
+<td style="text-align: right;">24.73</td>
+<td style="text-align: right;">17.64</td>
+<td style="text-align: right;">18.30</td>
+<td style="text-align: right;">17.87</td>
+<td style="text-align: right;">16.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Clark</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">25.33</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">19.32</td>
+<td style="text-align: right;">19.72</td>
+<td style="text-align: right;">28.66</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Multnh</td>
+<td style="text-align: right;">60.92</td>
+<td style="text-align: right;">24.97</td>
+<td style="text-align: right;">33.71</td>
+<td style="text-align: right;">37.58</td>
+<td style="text-align: right;">37.39</td>
+<td style="text-align: right;">33.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Washgn</td>
+<td style="text-align: right;">24.88</td>
+<td style="text-align: right;">24.97</td>
+<td style="text-align: right;">47.84</td>
+<td style="text-align: right;">24.80</td>
+<td style="text-align: right;">25.02</td>
+<td style="text-align: right;">22.09</td>
+</tr>
+</tbody>
+</table>
+</section><section id="tests-of-households-by-county-source-vs-acs" class="slide level2">
+<h1>Tests of % Households by County (Source vs ACS)</h1>
+<div style="float: left; width: 40%;">
+<table>
+<caption>chi-square test of household frequency (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2243</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">546</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2585</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="float: right; width: 60%;">
+<table>
+<caption>t-test of difference in joint distribution (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="households-by-age-group-source-vs-acs" class="slide level2">
+<h1>% Households by Age Group (Source vs ACS)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Opt-in</th>
+<th style="text-align: right;">Panel</th>
+<th style="text-align: right;">Recruited</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.91</td>
+<td style="text-align: right;">6.33</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">3.11</td>
+<td style="text-align: right;">3.16</td>
+<td style="text-align: right;">3.34</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">36.12</td>
+<td style="text-align: right;">38.25</td>
+<td style="text-align: right;">32.18</td>
+<td style="text-align: right;">37.79</td>
+<td style="text-align: right;">38.29</td>
+<td style="text-align: right;">37.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">20.66</td>
+<td style="text-align: right;">22.90</td>
+<td style="text-align: right;">22.22</td>
+<td style="text-align: right;">19.29</td>
+<td style="text-align: right;">18.91</td>
+<td style="text-align: right;">19.62</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">23.36</td>
+<td style="text-align: right;">12.79</td>
+<td style="text-align: right;">27.10</td>
+<td style="text-align: right;">19.41</td>
+<td style="text-align: right;">18.93</td>
+<td style="text-align: right;">18.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">18.95</td>
+<td style="text-align: right;">19.73</td>
+<td style="text-align: right;">17.90</td>
+<td style="text-align: right;">20.41</td>
+<td style="text-align: right;">20.70</td>
+<td style="text-align: right;">20.21</td>
+</tr>
+</tbody>
+</table>
+</section><section id="tests-of-households-by-age-group-source-vs-acs" class="slide level2">
+<h1>Tests of % Households by Age Group (Source vs ACS)</h1>
+<div style="float: left; width: 40%;">
+<table>
+<caption>chi-square test of household frequency (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">172.2</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">412.6</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">433.8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="float: right; width: 60%;">
+<table>
+<caption>t-test of difference in joint distribution (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="households-by-income-group-source-vs-acs" class="slide level2">
+<h1>% Households by Income Group (Source vs ACS)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Income Group</th>
+<th style="text-align: right;">Opt-in</th>
+<th style="text-align: right;">Panel</th>
+<th style="text-align: right;">Recruited</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&lt;$25k</td>
+<td style="text-align: right;">8.76</td>
+<td style="text-align: right;">14.37</td>
+<td style="text-align: right;">3.97</td>
+<td style="text-align: right;">19.45</td>
+<td style="text-align: right;">19.01</td>
+<td style="text-align: right;">19.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$25-49.9k</td>
+<td style="text-align: right;">15.72</td>
+<td style="text-align: right;">24.97</td>
+<td style="text-align: right;">12.46</td>
+<td style="text-align: right;">23.30</td>
+<td style="text-align: right;">22.46</td>
+<td style="text-align: right;">22.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$50-74.9k</td>
+<td style="text-align: right;">21.44</td>
+<td style="text-align: right;">21.56</td>
+<td style="text-align: right;">19.78</td>
+<td style="text-align: right;">18.46</td>
+<td style="text-align: right;">18.51</td>
+<td style="text-align: right;">18.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$75-99.9k</td>
+<td style="text-align: right;">18.69</td>
+<td style="text-align: right;">15.23</td>
+<td style="text-align: right;">18.05</td>
+<td style="text-align: right;">13.46</td>
+<td style="text-align: right;">13.41</td>
+<td style="text-align: right;">13.55</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$100-149.9k</td>
+<td style="text-align: right;">22.02</td>
+<td style="text-align: right;">16.20</td>
+<td style="text-align: right;">27.20</td>
+<td style="text-align: right;">14.43</td>
+<td style="text-align: right;">14.98</td>
+<td style="text-align: right;">14.87</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$150k+</td>
+<td style="text-align: right;">13.37</td>
+<td style="text-align: right;">7.67</td>
+<td style="text-align: right;">18.56</td>
+<td style="text-align: right;">10.90</td>
+<td style="text-align: right;">11.62</td>
+<td style="text-align: right;">10.82</td>
+</tr>
+</tbody>
+</table>
+</section><section id="tests-of-households-by-income-group-source-vs-acs" class="slide level2">
+<h1>Tests of % Households by Income Group (Source vs ACS)</h1>
+<div style="float: left; width: 40%;">
+<table>
+<caption>chi-square test of household frequency (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1007</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">220.1</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2333</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="float: right; width: 60%;">
+<table>
+<caption>t-test of difference in joint distribution (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="households-by-housing-type-and-tenure-source-vs-acs" class="slide level2">
+<h1>% Households by Housing Type and Tenure (Source vs ACS)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">tenure</th>
+<th style="text-align: right;">Opt-in</th>
+<th style="text-align: right;">Panel</th>
+<th style="text-align: right;">Recruited</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">5.34</td>
+<td style="text-align: right;">3.78</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">2.35</td>
+<td style="text-align: right;">2.75</td>
+<td style="text-align: right;">2.29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">11.13</td>
+<td style="text-align: right;">19.00</td>
+<td style="text-align: right;">7.32</td>
+<td style="text-align: right;">26.73</td>
+<td style="text-align: right;">27.73</td>
+<td style="text-align: right;">26.16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">74.53</td>
+<td style="text-align: right;">61.75</td>
+<td style="text-align: right;">81.85</td>
+<td style="text-align: right;">57.25</td>
+<td style="text-align: right;">56.28</td>
+<td style="text-align: right;">57.82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">9.00</td>
+<td style="text-align: right;">15.47</td>
+<td style="text-align: right;">7.83</td>
+<td style="text-align: right;">13.67</td>
+<td style="text-align: right;">13.25</td>
+<td style="text-align: right;">13.73</td>
+</tr>
+</tbody>
+</table>
+</section><section id="households-by-household-size-source-vs-acs" class="slide level2">
+<h1>% Households by Household Size (Source vs ACS)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Household Size</th>
+<th style="text-align: right;">Opt-in</th>
+<th style="text-align: right;">Panel</th>
+<th style="text-align: right;">Recruited</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">17.06</td>
+<td style="text-align: right;">18.27</td>
+<td style="text-align: right;">14.03</td>
+<td style="text-align: right;">28.08</td>
+<td style="text-align: right;">27.15</td>
+<td style="text-align: right;">27.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">43.81</td>
+<td style="text-align: right;">40.32</td>
+<td style="text-align: right;">43.87</td>
+<td style="text-align: right;">33.73</td>
+<td style="text-align: right;">34.66</td>
+<td style="text-align: right;">34.40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">16.68</td>
+<td style="text-align: right;">18.51</td>
+<td style="text-align: right;">19.12</td>
+<td style="text-align: right;">16.46</td>
+<td style="text-align: right;">15.78</td>
+<td style="text-align: right;">15.94</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">15.83</td>
+<td style="text-align: right;">14.74</td>
+<td style="text-align: right;">16.57</td>
+<td style="text-align: right;">12.44</td>
+<td style="text-align: right;">13.22</td>
+<td style="text-align: right;">13.23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6.62</td>
+<td style="text-align: right;">8.16</td>
+<td style="text-align: right;">6.41</td>
+<td style="text-align: right;">9.28</td>
+<td style="text-align: right;">9.18</td>
+<td style="text-align: right;">9.30</td>
+</tr>
+</tbody>
+</table>
+</section><section id="tests-of-households-by-household-size-source-vs-acs" class="slide level2">
+<h1>Tests of % Households by Household Size (Source vs ACS)</h1>
+<div style="float: left; width: 40%;">
+<table>
+<caption>chi-square test of household frequency (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">589.6</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">361.1</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">834.3</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="float: right; width: 60%;">
+<table>
+<caption>t-test of difference in joint distribution (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="households-by-number-of-children-source-vs-acs" class="slide level2">
+<h1>% Households by Number of Children (Source vs ACS)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">#children</th>
+<th style="text-align: right;">Opt-in</th>
+<th style="text-align: right;">Panel</th>
+<th style="text-align: right;">Recruited</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">69.17</td>
+<td style="text-align: right;">70.40</td>
+<td style="text-align: right;">68.43</td>
+<td style="text-align: right;">68.84</td>
+<td style="text-align: right;">67.99</td>
+<td style="text-align: right;">67.88</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13.21</td>
+<td style="text-align: right;">13.52</td>
+<td style="text-align: right;">13.78</td>
+<td style="text-align: right;">12.98</td>
+<td style="text-align: right;">13.35</td>
+<td style="text-align: right;">13.41</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">13.72</td>
+<td style="text-align: right;">11.08</td>
+<td style="text-align: right;">13.83</td>
+<td style="text-align: right;">11.92</td>
+<td style="text-align: right;">12.45</td>
+<td style="text-align: right;">12.28</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2.91</td>
+<td style="text-align: right;">3.05</td>
+<td style="text-align: right;">2.64</td>
+<td style="text-align: right;">4.46</td>
+<td style="text-align: right;">4.35</td>
+<td style="text-align: right;">4.47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">1.95</td>
+<td style="text-align: right;">1.32</td>
+<td style="text-align: right;">1.79</td>
+<td style="text-align: right;">1.86</td>
+<td style="text-align: right;">1.95</td>
+</tr>
+</tbody>
+</table>
+</section><section id="tests-of-households-by-number-of-children-source-vs-acs" class="slide level2">
+<h1>Tests of % Households by Number of Children (Source vs ACS)</h1>
+<div style="float: left; width: 40%;">
+<table>
+<caption>chi-square test of household frequency (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">77.03</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">37.88</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">79.73</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="float: right; width: 60%;">
+<table>
+<caption>t-test of difference in joint distribution (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="households-by-gender-of-householder-source-vs-acs" class="slide level2">
+<h1>% Households by Gender of Householder (Source vs ACS)</h1>
+<table>
+<caption>1=Male, 2=Female</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Gender of Householder</th>
+<th style="text-align: right;">Opt-in</th>
+<th style="text-align: right;">Panel</th>
+<th style="text-align: right;">Recruited</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40.58</td>
+<td style="text-align: right;">45.19</td>
+<td style="text-align: right;">42.81</td>
+<td style="text-align: right;">50.46</td>
+<td style="text-align: right;">50.82</td>
+<td style="text-align: right;">51.82</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">58.65</td>
+<td style="text-align: right;">53.84</td>
+<td style="text-align: right;">55.41</td>
+<td style="text-align: right;">49.54</td>
+<td style="text-align: right;">49.18</td>
+<td style="text-align: right;">48.18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.77</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">1.78</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</section><section id="tests-of-households-by-gender-of-householder-source-vs-acs" class="slide level2">
+<h1>Tests of % Households by Gender of Householder (Source vs ACS)</h1>
+<div style="float: left; width: 40%;">
+<table>
+<caption>chi-square test of household frequency (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">237.3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">60.28</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>chi-square test of household frequency (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">121.4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0 * * *</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="float: right; width: 60%;">
+<table>
+<caption>t-test of difference in joint distribution (Opt-in vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">-0.04</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.97</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Panel vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">-0.1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.94</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>t-test of difference in joint distribution (Recruited vs 2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+<th style="text-align: center;">Alternative hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">-0.13</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.92</td>
+<td style="text-align: center;">two.sided</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section><section id="initial-assessment" class="slide level2">
+<h1>Initial Assessment</h1>
+<ul>
+<li>Opt-in and Recruited samples, especially the Recruited sample, over-represent Multinomah and Washington residents</li>
+<li>The overall sample, in particular, the Opt-in and Recruited samples, under-represent low-income households</li>
+<li>Opt-in and Recruited samples under-represent young households</li>
+<li>Opt-in and Recruited samples under-represent MF renters</li>
+<li>As expected, Panel sample matches ACS distribution better</li>
+</ul>
+</section></section>
+<section><section id="weighting-scheme" class="titleslide slide level1"><h1>Weighting Scheme</h1></section><section id="weighting-scheme-1" class="slide level2">
+<h1>Weighting Scheme</h1>
+<ul>
+<li>ACS-1 vs ACS-5</li>
+</ul>
+</section><section id="sp-original-sf" class="slide level2">
+<h1>SP original (SF)</h1>
+<ul>
+<li>County * Housing Type * Tenure * Age Group</li>
+</ul>
+<table>
+<caption>SF Households</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">197</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">733</td>
+<td style="text-align: right;">474</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">202</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">513</td>
+<td style="text-align: right;">388</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">271</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">507</td>
+<td style="text-align: right;">483</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">201</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">406</td>
+<td style="text-align: right;">343</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">258</td>
+<td style="text-align: right;">77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">11</td>
+</tr>
+</tbody>
+</table>
+</section><section id="acs-1-sf" class="slide level2">
+<h1>2013 ACS-1 (SF)</h1>
+<ul>
+<li>County * Housing Type * Tenure * Age Group</li>
+</ul>
+<table>
+<caption>SF Households</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">266</td>
+<td style="text-align: right;">488</td>
+<td style="text-align: right;">356</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">238</td>
+<td style="text-align: right;">281</td>
+<td style="text-align: right;">367</td>
+<td style="text-align: right;">307</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">284</td>
+<td style="text-align: right;">290</td>
+<td style="text-align: right;">449</td>
+<td style="text-align: right;">276</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">296</td>
+<td style="text-align: right;">349</td>
+<td style="text-align: right;">460</td>
+<td style="text-align: right;">318</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">111</td>
+<td style="text-align: right;">223</td>
+<td style="text-align: right;">108</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">19</td>
+</tr>
+</tbody>
+</table>
+</section><section id="acs-1-sf-1" class="slide level2">
+<h1>2014 ACS-1 (SF)</h1>
+<ul>
+<li>County * Housing Type * Tenure * Age Group</li>
+</ul>
+<table>
+<caption>SF Households</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">226</td>
+<td style="text-align: right;">307</td>
+<td style="text-align: right;">506</td>
+<td style="text-align: right;">330</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">219</td>
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">359</td>
+<td style="text-align: right;">296</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">275</td>
+<td style="text-align: right;">290</td>
+<td style="text-align: right;">407</td>
+<td style="text-align: right;">297</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">310</td>
+<td style="text-align: right;">365</td>
+<td style="text-align: right;">460</td>
+<td style="text-align: right;">324</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">244</td>
+<td style="text-align: right;">128</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">38</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">14</td>
+</tr>
+</tbody>
+</table>
+</section><section id="acs-5-sf" class="slide level2">
+<h1>2014 ACS-5 (SF)</h1>
+<ul>
+<li>County * Housing Type * Tenure * Age Group</li>
+</ul>
+<table>
+<caption>SF Households</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">671</td>
+<td style="text-align: right;">1437</td>
+<td style="text-align: right;">1525</td>
+<td style="text-align: right;">1050</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">681</td>
+<td style="text-align: right;">1289</td>
+<td style="text-align: right;">1106</td>
+<td style="text-align: right;">877</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">823</td>
+<td style="text-align: right;">1391</td>
+<td style="text-align: right;">1295</td>
+<td style="text-align: right;">886</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">902</td>
+<td style="text-align: right;">1593</td>
+<td style="text-align: right;">1331</td>
+<td style="text-align: right;">904</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">231</td>
+<td style="text-align: right;">533</td>
+<td style="text-align: right;">694</td>
+<td style="text-align: right;">352</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">219</td>
+<td style="text-align: right;">182</td>
+<td style="text-align: right;">109</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">91</td>
+<td style="text-align: right;">152</td>
+<td style="text-align: right;">146</td>
+<td style="text-align: right;">79</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">124</td>
+<td style="text-align: right;">103</td>
+<td style="text-align: right;">67</td>
+</tr>
+</tbody>
+</table>
+</section><section id="sp-original-mf" class="slide level2">
+<h1>SP original (MF)</h1>
+<ul>
+<li>County * Housing Type * Tenure * Age Group</li>
+</ul>
+<table>
+<caption>MF Households</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">237</td>
+<td style="text-align: right;">94</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">23</td>
+</tr>
+</tbody>
+</table>
+</section><section id="acs-1-mf" class="slide level2">
+<h1>2013 ACS-1 (MF)</h1>
+<ul>
+<li>County * Housing Type * Tenure * Age Group</li>
+</ul>
+<table>
+<caption>MF Households</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">122</td>
+<td style="text-align: right;">368</td>
+<td style="text-align: right;">233</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">106</td>
+<td style="text-align: right;">56</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">70</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">136</td>
+<td style="text-align: right;">77</td>
+</tr>
+</tbody>
+</table>
+</section><section id="acs-1-mf-1" class="slide level2">
+<h1>2014 ACS-1 (MF)</h1>
+<ul>
+<li>County * Housing Type * Tenure * Age Group</li>
+</ul>
+<table>
+<caption>MF Households</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">115</td>
+<td style="text-align: right;">422</td>
+<td style="text-align: right;">212</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">103</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">114</td>
+<td style="text-align: right;">63</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">94</td>
+</tr>
+</tbody>
+</table>
+</section><section id="acs-5-mf" class="slide level2">
+<h1>2014 ACS-5 (MF)</h1>
+<ul>
+<li>County * Housing Type * Tenure * Age Group</li>
+</ul>
+<table>
+<caption>MF Households</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">96</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">104</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">136</td>
+<td style="text-align: right;">209</td>
+<td style="text-align: right;">144</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">270</td>
+<td style="text-align: right;">561</td>
+<td style="text-align: right;">1148</td>
+<td style="text-align: right;">656</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">223</td>
+<td style="text-align: right;">335</td>
+<td style="text-align: right;">182</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">192</td>
+<td style="text-align: right;">301</td>
+<td style="text-align: right;">176</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">312</td>
+<td style="text-align: right;">408</td>
+<td style="text-align: right;">240</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section><section id="weights" class="titleslide slide level1"><h1>Weights</h1></section><section id="weights-1" class="slide level2">
+<h1>Weights</h1>
+<ul>
+<li>2013 ACS-1</li>
+<li>2014 ACS-1</li>
+<li>2014 ACS-5</li>
+</ul>
+</section><section id="assumptions" class="slide level2">
+<h1>Assumptions</h1>
+<ul>
+<li>Assumption: the person responsed to the SP survey is the householder (ACS defintion)</li>
+<li>Assumption: Household income in the SP survey is comparable to ACS total household income</li>
+</ul>
+</section><section id="weights-against-2013-acs-1-sf" class="slide level2">
+<h1>Weights against 2013 ACS-1 (SF)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">1.184</td>
+<td style="text-align: right;">0.366</td>
+<td style="text-align: right;">0.255</td>
+<td style="text-align: right;">0.103</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">0.941</td>
+<td style="text-align: right;">4.617</td>
+<td style="text-align: right;">0.505</td>
+<td style="text-align: right;">0.588</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.944</td>
+<td style="text-align: right;">4.136</td>
+<td style="text-align: right;">0.479</td>
+<td style="text-align: right;">0.601</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.742</td>
+<td style="text-align: right;">7.311</td>
+<td style="text-align: right;">0.624</td>
+<td style="text-align: right;">0.401</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">1.112</td>
+<td style="text-align: right;">5.753</td>
+<td style="text-align: right;">0.702</td>
+<td style="text-align: right;">0.631</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.806</td>
+<td style="text-align: right;">0.684</td>
+<td style="text-align: right;">1.784</td>
+<td style="text-align: right;">3.015</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">2.191</td>
+<td style="text-align: right;">4.571</td>
+<td style="text-align: right;">0.868</td>
+<td style="text-align: right;">1.224</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">2.016</td>
+<td style="text-align: right;">5.981</td>
+<td style="text-align: right;">1.321</td>
+<td style="text-align: right;">1.024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">1.782</td>
+<td style="text-align: right;">10.871</td>
+<td style="text-align: right;">1.825</td>
+<td style="text-align: right;">1.595</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">1.560</td>
+<td style="text-align: right;">6.664</td>
+<td style="text-align: right;">1.127</td>
+<td style="text-align: right;">1.433</td>
+</tr>
+</tbody>
+</table>
+</section><section id="weights-against-2013-acs-1-mf" class="slide level2">
+<h1>Weights against 2013 ACS-1 (MF)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.438</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">0.533</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.743</td>
+<td style="text-align: right;">0.644</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.469</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.192</td>
+<td style="text-align: right;">0.255</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">1.054</td>
+<td style="text-align: right;">2.228</td>
+<td style="text-align: right;">0.577</td>
+<td style="text-align: right;">0.236</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">4.328</td>
+<td style="text-align: right;">1.286</td>
+<td style="text-align: right;">0.325</td>
+<td style="text-align: right;">0.449</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">2.798</td>
+<td style="text-align: right;">12.474</td>
+<td style="text-align: right;">5.499</td>
+<td style="text-align: right;">5.143</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">2.488</td>
+<td style="text-align: right;">7.292</td>
+<td style="text-align: right;">1.678</td>
+<td style="text-align: right;">2.764</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">1.616</td>
+<td style="text-align: right;">10.877</td>
+<td style="text-align: right;">1.740</td>
+<td style="text-align: right;">1.997</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.868</td>
+<td style="text-align: right;">5.310</td>
+<td style="text-align: right;">1.693</td>
+<td style="text-align: right;">3.231</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">4.745</td>
+<td style="text-align: right;">22.677</td>
+<td style="text-align: right;">2.133</td>
+<td style="text-align: right;">3.232</td>
+</tr>
+</tbody>
+</table>
+</section><section id="weights-against-2014-acs-1-sf" class="slide level2">
+<h1>Weights against 2014 ACS-1 (SF)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.450</td>
+<td style="text-align: right;">0.530</td>
+<td style="text-align: right;">0.192</td>
+<td style="text-align: right;">0.115</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">0.906</td>
+<td style="text-align: right;">5.453</td>
+<td style="text-align: right;">0.522</td>
+<td style="text-align: right;">0.558</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.846</td>
+<td style="text-align: right;">3.662</td>
+<td style="text-align: right;">0.495</td>
+<td style="text-align: right;">0.554</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.744</td>
+<td style="text-align: right;">7.462</td>
+<td style="text-align: right;">0.526</td>
+<td style="text-align: right;">0.446</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">1.115</td>
+<td style="text-align: right;">5.940</td>
+<td style="text-align: right;">0.670</td>
+<td style="text-align: right;">0.620</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.797</td>
+<td style="text-align: right;">2.274</td>
+<td style="text-align: right;">0.512</td>
+<td style="text-align: right;">3.046</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">2.119</td>
+<td style="text-align: right;">4.451</td>
+<td style="text-align: right;">0.790</td>
+<td style="text-align: right;">1.637</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">1.414</td>
+<td style="text-align: right;">6.353</td>
+<td style="text-align: right;">1.136</td>
+<td style="text-align: right;">1.534</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">1.710</td>
+<td style="text-align: right;">12.110</td>
+<td style="text-align: right;">1.534</td>
+<td style="text-align: right;">0.910</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">1.199</td>
+<td style="text-align: right;">6.433</td>
+<td style="text-align: right;">1.573</td>
+<td style="text-align: right;">0.978</td>
+</tr>
+</tbody>
+</table>
+</section><section id="weights-against-2014-acs-1-mf" class="slide level2">
+<h1>Weights against 2014 ACS-1 (MF)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">4.163</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">0.501</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.474</td>
+<td style="text-align: right;">1.114</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">2.734</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.556</td>
+<td style="text-align: right;">1.231</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">1.101</td>
+<td style="text-align: right;">0.992</td>
+<td style="text-align: right;">0.510</td>
+<td style="text-align: right;">0.420</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">3.698</td>
+<td style="text-align: right;">0.998</td>
+<td style="text-align: right;">0.353</td>
+<td style="text-align: right;">0.659</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">2.220</td>
+<td style="text-align: right;">15.309</td>
+<td style="text-align: right;">5.279</td>
+<td style="text-align: right;">7.418</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">2.656</td>
+<td style="text-align: right;">6.192</td>
+<td style="text-align: right;">1.899</td>
+<td style="text-align: right;">2.432</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">2.045</td>
+<td style="text-align: right;">12.641</td>
+<td style="text-align: right;">1.756</td>
+<td style="text-align: right;">1.688</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.914</td>
+<td style="text-align: right;">5.251</td>
+<td style="text-align: right;">1.973</td>
+<td style="text-align: right;">3.118</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">5.310</td>
+<td style="text-align: right;">24.779</td>
+<td style="text-align: right;">2.273</td>
+<td style="text-align: right;">3.571</td>
+</tr>
+</tbody>
+</table>
+</section><section id="weights-against-2014-acs-5-sf" class="slide level2">
+<h1>Weights against 2014 ACS-5 (SF)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.738</td>
+<td style="text-align: right;">0.975</td>
+<td style="text-align: right;">0.218</td>
+<td style="text-align: right;">0.108</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">0.857</td>
+<td style="text-align: right;">8.100</td>
+<td style="text-align: right;">0.465</td>
+<td style="text-align: right;">0.514</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.795</td>
+<td style="text-align: right;">5.903</td>
+<td style="text-align: right;">0.440</td>
+<td style="text-align: right;">0.502</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.673</td>
+<td style="text-align: right;">10.661</td>
+<td style="text-align: right;">0.507</td>
+<td style="text-align: right;">0.382</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.945</td>
+<td style="text-align: right;">8.039</td>
+<td style="text-align: right;">0.597</td>
+<td style="text-align: right;">0.549</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.807</td>
+<td style="text-align: right;">2.331</td>
+<td style="text-align: right;">1.166</td>
+<td style="text-align: right;">3.247</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">1.852</td>
+<td style="text-align: right;">6.432</td>
+<td style="text-align: right;">0.731</td>
+<td style="text-align: right;">1.281</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">1.612</td>
+<td style="text-align: right;">10.595</td>
+<td style="text-align: right;">1.102</td>
+<td style="text-align: right;">1.234</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">1.396</td>
+<td style="text-align: right;">17.103</td>
+<td style="text-align: right;">1.495</td>
+<td style="text-align: right;">1.074</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">1.270</td>
+<td style="text-align: right;">8.377</td>
+<td style="text-align: right;">1.200</td>
+<td style="text-align: right;">1.588</td>
+</tr>
+</tbody>
+</table>
+</section><section id="weights-against-2014-acs-5-mf" class="slide level2">
+<h1>Weights against 2014 ACS-5 (MF)</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">1.950</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">0.691</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.499</td>
+<td style="text-align: right;">0.736</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">1.098</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.296</td>
+<td style="text-align: right;">0.774</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.782</td>
+<td style="text-align: right;">2.231</td>
+<td style="text-align: right;">0.442</td>
+<td style="text-align: right;">0.299</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">3.282</td>
+<td style="text-align: right;">1.700</td>
+<td style="text-align: right;">0.285</td>
+<td style="text-align: right;">0.469</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">2.115</td>
+<td style="text-align: right;">20.899</td>
+<td style="text-align: right;">5.242</td>
+<td style="text-align: right;">5.858</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">2.328</td>
+<td style="text-align: right;">9.578</td>
+<td style="text-align: right;">1.541</td>
+<td style="text-align: right;">2.269</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">1.676</td>
+<td style="text-align: right;">15.623</td>
+<td style="text-align: right;">1.633</td>
+<td style="text-align: right;">1.679</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.758</td>
+<td style="text-align: right;">7.466</td>
+<td style="text-align: right;">1.490</td>
+<td style="text-align: right;">2.537</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">4.659</td>
+<td style="text-align: right;">33.570</td>
+<td style="text-align: right;">1.985</td>
+<td style="text-align: right;">2.808</td>
+</tr>
+</tbody>
+</table>
+<!-- ## Verify Joint Distribution vs 2014 ACS-1 (1) -->
+<!-- - % Households by County, Housing Type, Tenure, Age Group -->
+<!-- ```{r, echo=F, message=FALSE} -->
+<!-- output <- sp.pp %>% mutate(sumwgt=sum(wgt), sumexpwgt=sum(expwgt)) %>%  -->
+<!--   group_by(countychr, htype2, tenurechr, age_group5) %>% -->
+<!--   summarize(pct=100*sum(wgt)/first(sumwgt)) %>% -->
+<!--   spread(countychr, pct) %>% -->
+<!--   left_join( -->
+<!--     acs14.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>%  -->
+<!--       group_by(countychr, htype2, tenurechr, age_group5) %>%  -->
+<!--       summarize(ACS_pct=100*sum(hhwt/100)/first(sumhhwt)) %>% -->
+<!--       spread(countychr, ACS_pct), -->
+<!--     by=c("htype2", "tenurechr", "age_group5"), suffix=c(" (SP)", " (ACS1)")) %>% -->
+<!--   rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5) -->
+<!-- knitr::kable(output %>% filter(`HType`=="SF"), digits=2) -->
+<!-- ``` -->
+<!-- ## Verify Joint Distribution  vs 2014 ACS-1 (2) -->
+<!-- - % Households by County, Housing Type, Tenure, Age Group (joint distribution) -->
+<!-- ```{r, echo=F, message=FALSE} -->
+<!-- knitr::kable(output %>% filter(`HType`=="MF"), digits=2) -->
+<!-- ``` -->
+</section><section id="joint-distribution-sp-wgted-against-2013-acs1-sf" class="slide level2">
+<h1>Joint Distribution SP wgted against 2013 ACS1 (SF)</h1>
+<ul>
+<li>% Households by County, Housing Type, Tenure, Age Group (joint distribution)</li>
+</ul>
+<table>
+<caption>SF (SP weighted)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">2.84</td>
+<td style="text-align: right;">2.90</td>
+<td style="text-align: right;">5.67</td>
+<td style="text-align: right;">4.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">2.92</td>
+<td style="text-align: right;">2.98</td>
+<td style="text-align: right;">3.76</td>
+<td style="text-align: right;">3.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">3.08</td>
+<td style="text-align: right;">2.91</td>
+<td style="text-align: right;">4.85</td>
+<td style="text-align: right;">2.97</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">3.43</td>
+<td style="text-align: right;">3.26</td>
+<td style="text-align: right;">4.37</td>
+<td style="text-align: right;">3.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">1.41</td>
+<td style="text-align: right;">1.61</td>
+<td style="text-align: right;">3.43</td>
+<td style="text-align: right;">1.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.39</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.46</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.24</td>
+</tr>
+</tbody>
+</table>
+</section><section id="joint-distribution-2013-acs-1-sf" class="slide level2">
+<h1>Joint Distribution 2013 ACS-1 (SF)</h1>
+<ul>
+<li>% Households by County, Housing Type, Tenure, Age Group (joint distribution)</li>
+</ul>
+<table>
+<caption>SF (ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">2.84</td>
+<td style="text-align: right;">2.90</td>
+<td style="text-align: right;">5.66</td>
+<td style="text-align: right;">4.26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">2.92</td>
+<td style="text-align: right;">2.97</td>
+<td style="text-align: right;">3.76</td>
+<td style="text-align: right;">3.57</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">3.08</td>
+<td style="text-align: right;">2.91</td>
+<td style="text-align: right;">4.84</td>
+<td style="text-align: right;">2.97</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">3.42</td>
+<td style="text-align: right;">3.26</td>
+<td style="text-align: right;">4.36</td>
+<td style="text-align: right;">3.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">1.41</td>
+<td style="text-align: right;">1.61</td>
+<td style="text-align: right;">3.43</td>
+<td style="text-align: right;">1.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.39</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.46</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.24</td>
+</tr>
+</tbody>
+</table>
+</section><section id="joint-distribution-2014-acs-1-sf" class="slide level2">
+<h1>Joint Distribution 2014 ACS-1 (SF)</h1>
+<ul>
+<li>% Households by County, Housing Type, Tenure, Age Group (joint distribution)</li>
+</ul>
+<table>
+<caption>SF (ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">2.73</td>
+<td style="text-align: right;">3.42</td>
+<td style="text-align: right;">5.86</td>
+<td style="text-align: right;">4.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">2.62</td>
+<td style="text-align: right;">2.63</td>
+<td style="text-align: right;">3.89</td>
+<td style="text-align: right;">3.29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">3.09</td>
+<td style="text-align: right;">2.97</td>
+<td style="text-align: right;">4.08</td>
+<td style="text-align: right;">3.29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">3.43</td>
+<td style="text-align: right;">3.36</td>
+<td style="text-align: right;">4.16</td>
+<td style="text-align: right;">3.26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.12</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">1.36</td>
+<td style="text-align: right;">1.57</td>
+<td style="text-align: right;">3.12</td>
+<td style="text-align: right;">1.93</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.56</td>
+<td style="text-align: right;">0.26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">0.16</td>
+</tr>
+</tbody>
+</table>
+</section><section id="joint-distribution-2014-acs-5-sf" class="slide level2">
+<h1>Joint Distribution 2014 ACS-5 (SF)</h1>
+<ul>
+<li>% Households by County, Housing Type, Tenure, Age Group (joint distribution)</li>
+</ul>
+<table>
+<caption>SF (ACS5)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">2.58</td>
+<td style="text-align: right;">5.08</td>
+<td style="text-align: right;">5.22</td>
+<td style="text-align: right;">3.73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">2.46</td>
+<td style="text-align: right;">4.25</td>
+<td style="text-align: right;">3.46</td>
+<td style="text-align: right;">2.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">2.79</td>
+<td style="text-align: right;">4.24</td>
+<td style="text-align: right;">3.93</td>
+<td style="text-align: right;">2.83</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">2.91</td>
+<td style="text-align: right;">4.55</td>
+<td style="text-align: right;">3.71</td>
+<td style="text-align: right;">2.88</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">1.19</td>
+<td style="text-align: right;">2.26</td>
+<td style="text-align: right;">2.88</td>
+<td style="text-align: right;">1.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">0.27</td>
+</tr>
+</tbody>
+</table>
+</section><section id="joint-distribution-sp-wgted-against-2013-acs1-mf" class="slide level2">
+<h1>Joint Distribution SP wgted against 2013 ACS1 (MF)</h1>
+<ul>
+<li>% Households by County, Housing Type, Tenure, Age Group (joint distribution)</li>
+</ul>
+<table>
+<caption>MF (SP weighted)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.57</td>
+<td style="text-align: right;">0.16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">1.01</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">1.33</td>
+<td style="text-align: right;">2.01</td>
+<td style="text-align: right;">6.09</td>
+<td style="text-align: right;">3.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">1.65</td>
+<td style="text-align: right;">1.01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">1.43</td>
+<td style="text-align: right;">0.94</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">1.63</td>
+<td style="text-align: right;">1.14</td>
+</tr>
+</tbody>
+</table>
+</section><section id="joint-distribution-2013-acs-1-mf" class="slide level2">
+<h1>Joint Distribution 2013 ACS-1 (MF)</h1>
+<ul>
+<li>% Households by County, Housing Type, Tenure, Age Group (joint distribution)</li>
+</ul>
+<table>
+<caption>MF (ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.57</td>
+<td style="text-align: right;">0.16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">1.01</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">1.33</td>
+<td style="text-align: right;">2.01</td>
+<td style="text-align: right;">6.09</td>
+<td style="text-align: right;">3.98</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">1.65</td>
+<td style="text-align: right;">1.01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">1.42</td>
+<td style="text-align: right;">0.94</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">1.63</td>
+<td style="text-align: right;">1.14</td>
+</tr>
+</tbody>
+</table>
+</section><section id="joint-distribution-2014-acs-1-mf" class="slide level2">
+<h1>Joint Distribution 2014 ACS-1 (MF)</h1>
+<ul>
+<li>% Households by County, Housing Type, Tenure, Age Group (joint distribution)</li>
+</ul>
+<table>
+<caption>MF (ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: right;">0.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">0.24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">1.42</td>
+<td style="text-align: right;">1.71</td>
+<td style="text-align: right;">6.89</td>
+<td style="text-align: right;">3.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;">0.77</td>
+<td style="text-align: right;">1.67</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1.66</td>
+<td style="text-align: right;">0.91</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">1.74</td>
+<td style="text-align: right;">1.26</td>
+</tr>
+</tbody>
+</table>
+</section><section id="joint-distribution-2014-acs-5-mf" class="slide level2">
+<h1>Joint Distribution 2014 ACS-5 (MF)</h1>
+<ul>
+<li>% Households by County, Housing Type, Tenure, Age Group (joint distribution)</li>
+</ul>
+<table>
+<caption>MF (ACS5)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HType</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">0.18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">0.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.13</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">0.23</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.63</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">1.25</td>
+<td style="text-align: right;">2.64</td>
+<td style="text-align: right;">5.59</td>
+<td style="text-align: right;">3.26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">1.55</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">1.25</td>
+<td style="text-align: right;">0.74</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">1.03</td>
+<td style="text-align: right;">1.52</td>
+<td style="text-align: right;">0.99</td>
+</tr>
+</tbody>
+</table>
+</section><section id="marginal-distributions-1" class="slide level2">
+<h1>Marginal Distributions (1)</h1>
+<ul>
+<li>% Households by County</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">County</th>
+<th style="text-align: right;">% (SP)</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Clackms</td>
+<td style="text-align: right;">18.32</td>
+<td style="text-align: right;">18.30</td>
+<td style="text-align: right;">16.08</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Clark</td>
+<td style="text-align: right;">19.25</td>
+<td style="text-align: right;">19.32</td>
+<td style="text-align: right;">28.66</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Multnh</td>
+<td style="text-align: right;">37.61</td>
+<td style="text-align: right;">37.58</td>
+<td style="text-align: right;">33.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Washgn</td>
+<td style="text-align: right;">24.81</td>
+<td style="text-align: right;">24.80</td>
+<td style="text-align: right;">22.09</td>
+</tr>
+</tbody>
+</table>
+</section><section id="marginal-distributions-2" class="slide level2">
+<h1>Marginal Distributions (2)</h1>
+<ul>
+<li>% Households by Housing Type (2 Categories)</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: right;">% (SP)</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: right;">29.02</td>
+<td style="text-align: right;">29.09</td>
+<td style="text-align: right;">28.45</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: right;">70.98</td>
+<td style="text-align: right;">70.91</td>
+<td style="text-align: right;">71.55</td>
+</tr>
+</tbody>
+</table>
+</section><section id="marginal-distributions-3" class="slide level2">
+<h1>Marginal Distributions (3)</h1>
+<ul>
+<li>% Households by Housing Type (3 Categories)</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: right;">% (SP)</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: right;">29.02</td>
+<td style="text-align: right;">29.09</td>
+<td style="text-align: right;">28.45</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SFA</td>
+<td style="text-align: right;">6.33</td>
+<td style="text-align: right;">4.99</td>
+<td style="text-align: right;">5.38</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SFD</td>
+<td style="text-align: right;">64.65</td>
+<td style="text-align: right;">65.92</td>
+<td style="text-align: right;">66.17</td>
+</tr>
+</tbody>
+</table>
+</section><section id="marginal-distributions-4" class="slide level2">
+<h1>Marginal Distributions (4)</h1>
+<ul>
+<li>% Households by Tenure</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: right;">% (SP)</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">59.56</td>
+<td style="text-align: right;">59.6</td>
+<td style="text-align: right;">60.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">40.44</td>
+<td style="text-align: right;">40.4</td>
+<td style="text-align: right;">39.89</td>
+</tr>
+</tbody>
+</table>
+</section><section id="marginal-distributions-5" class="slide level2">
+<h1>Marginal Distributions (5)</h1>
+<ul>
+<li>% Households by Age Group</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">% (SP)</th>
+<th style="text-align: right;">% (2013 ACS1)</th>
+<th style="text-align: right;">% (2014 ACS5)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">3.10</td>
+<td style="text-align: right;">3.11</td>
+<td style="text-align: right;">3.34</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">37.76</td>
+<td style="text-align: right;">37.79</td>
+<td style="text-align: right;">37.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">19.28</td>
+<td style="text-align: right;">19.29</td>
+<td style="text-align: right;">19.62</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">19.42</td>
+<td style="text-align: right;">19.41</td>
+<td style="text-align: right;">18.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">20.43</td>
+<td style="text-align: right;">20.41</td>
+<td style="text-align: right;">20.21</td>
+</tr>
+</tbody>
+</table>
+</section><section id="marginal-distributions-6" class="slide level2">
+<h1>Marginal Distributions (6)</h1>
+<ul>
+<li>% Households by County and Housing Type</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+<th style="text-align: right;">Clark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: right;">18.18</td>
+<td style="text-align: right;">35.24</td>
+<td style="text-align: right;">32.34</td>
+<td style="text-align: right;">22.90</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: right;">81.82</td>
+<td style="text-align: right;">64.76</td>
+<td style="text-align: right;">67.66</td>
+<td style="text-align: right;">77.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: right;">18.18</td>
+<td style="text-align: right;">35.24</td>
+<td style="text-align: right;">32.36</td>
+<td style="text-align: right;">23.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: right;">81.82</td>
+<td style="text-align: right;">64.76</td>
+<td style="text-align: right;">67.64</td>
+<td style="text-align: right;">76.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: right;">19.33</td>
+<td style="text-align: right;">36.41</td>
+<td style="text-align: right;">31.60</td>
+<td style="text-align: right;">21.94</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: right;">80.67</td>
+<td style="text-align: right;">63.59</td>
+<td style="text-align: right;">68.40</td>
+<td style="text-align: right;">78.06</td>
+</tr>
+</tbody>
+</table>
+</section><section id="marginal-distributions-7" class="slide level2">
+<h1>Marginal Distributions (7)</h1>
+<ul>
+<li>% Households by County and Tenure</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+<th style="text-align: right;">Clark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">68.93</td>
+<td style="text-align: right;">53.50</td>
+<td style="text-align: right;">58.68</td>
+<td style="text-align: right;">63.63</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">31.07</td>
+<td style="text-align: right;">46.50</td>
+<td style="text-align: right;">41.32</td>
+<td style="text-align: right;">36.37</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">68.93</td>
+<td style="text-align: right;">53.50</td>
+<td style="text-align: right;">58.69</td>
+<td style="text-align: right;">63.80</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">31.07</td>
+<td style="text-align: right;">46.50</td>
+<td style="text-align: right;">41.31</td>
+<td style="text-align: right;">36.20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">68.66</td>
+<td style="text-align: right;">52.92</td>
+<td style="text-align: right;">58.68</td>
+<td style="text-align: right;">64.73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">31.34</td>
+<td style="text-align: right;">47.08</td>
+<td style="text-align: right;">41.32</td>
+<td style="text-align: right;">35.27</td>
+</tr>
+</tbody>
+</table>
+</section><section id="marginal-distributions-8" class="slide level2">
+<h1>Marginal Distributions (8)</h1>
+<table>
+<caption>% Households by County and Age Group</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Age Group</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+<th style="text-align: right;">Clark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">2.70</td>
+<td style="text-align: right;">3.90</td>
+<td style="text-align: right;">2.71</td>
+<td style="text-align: right;">2.43</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">30.70</td>
+<td style="text-align: right;">41.91</td>
+<td style="text-align: right;">39.69</td>
+<td style="text-align: right;">33.87</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">20.74</td>
+<td style="text-align: right;">16.95</td>
+<td style="text-align: right;">20.18</td>
+<td style="text-align: right;">21.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">21.29</td>
+<td style="text-align: right;">19.40</td>
+<td style="text-align: right;">17.83</td>
+<td style="text-align: right;">19.74</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">24.56</td>
+<td style="text-align: right;">17.84</td>
+<td style="text-align: right;">19.58</td>
+<td style="text-align: right;">22.65</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">2.70</td>
+<td style="text-align: right;">3.90</td>
+<td style="text-align: right;">2.73</td>
+<td style="text-align: right;">2.42</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">30.70</td>
+<td style="text-align: right;">41.91</td>
+<td style="text-align: right;">39.68</td>
+<td style="text-align: right;">34.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">20.74</td>
+<td style="text-align: right;">16.95</td>
+<td style="text-align: right;">20.18</td>
+<td style="text-align: right;">21.33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">21.29</td>
+<td style="text-align: right;">19.40</td>
+<td style="text-align: right;">17.83</td>
+<td style="text-align: right;">19.65</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">24.56</td>
+<td style="text-align: right;">17.84</td>
+<td style="text-align: right;">19.58</td>
+<td style="text-align: right;">22.54</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">&lt;25</td>
+<td style="text-align: right;">2.37</td>
+<td style="text-align: right;">3.90</td>
+<td style="text-align: right;">3.43</td>
+<td style="text-align: right;">3.18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">25-44</td>
+<td style="text-align: right;">31.55</td>
+<td style="text-align: right;">42.44</td>
+<td style="text-align: right;">39.31</td>
+<td style="text-align: right;">35.14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">45-54</td>
+<td style="text-align: right;">20.34</td>
+<td style="text-align: right;">17.74</td>
+<td style="text-align: right;">19.91</td>
+<td style="text-align: right;">21.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">55-64</td>
+<td style="text-align: right;">21.51</td>
+<td style="text-align: right;">18.10</td>
+<td style="text-align: right;">17.84</td>
+<td style="text-align: right;">19.26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">65+</td>
+<td style="text-align: right;">24.23</td>
+<td style="text-align: right;">17.82</td>
+<td style="text-align: right;">19.51</td>
+<td style="text-align: right;">21.26</td>
+</tr>
+</tbody>
+</table>
+</section><section id="marginal-distributions-9" class="slide level2">
+<h1>Marginal Distributions (9)</h1>
+<ul>
+<li>% Households by County, Housing Type and Tenure</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+<th style="text-align: right;">Clark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">1.38</td>
+<td style="text-align: right;">3.82</td>
+<td style="text-align: right;">1.63</td>
+<td style="text-align: right;">0.87</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">16.80</td>
+<td style="text-align: right;">31.42</td>
+<td style="text-align: right;">30.71</td>
+<td style="text-align: right;">22.03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">67.55</td>
+<td style="text-align: right;">49.68</td>
+<td style="text-align: right;">57.05</td>
+<td style="text-align: right;">62.76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">14.27</td>
+<td style="text-align: right;">15.08</td>
+<td style="text-align: right;">10.61</td>
+<td style="text-align: right;">14.34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">1.38</td>
+<td style="text-align: right;">3.82</td>
+<td style="text-align: right;">1.66</td>
+<td style="text-align: right;">1.32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">16.80</td>
+<td style="text-align: right;">31.42</td>
+<td style="text-align: right;">30.70</td>
+<td style="text-align: right;">21.93</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">67.55</td>
+<td style="text-align: right;">49.68</td>
+<td style="text-align: right;">57.03</td>
+<td style="text-align: right;">62.48</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">14.27</td>
+<td style="text-align: right;">15.08</td>
+<td style="text-align: right;">10.61</td>
+<td style="text-align: right;">14.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">1.46</td>
+<td style="text-align: right;">3.62</td>
+<td style="text-align: right;">2.32</td>
+<td style="text-align: right;">1.20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">17.87</td>
+<td style="text-align: right;">32.79</td>
+<td style="text-align: right;">29.28</td>
+<td style="text-align: right;">20.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">67.19</td>
+<td style="text-align: right;">49.30</td>
+<td style="text-align: right;">56.35</td>
+<td style="text-align: right;">63.54</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">13.48</td>
+<td style="text-align: right;">14.29</td>
+<td style="text-align: right;">12.05</td>
+<td style="text-align: right;">14.52</td>
+</tr>
+</tbody>
+</table>
+</section><section id="marginal-distributions-10" class="slide level2">
+<h1>Marginal Distributions (10)</h1>
+<ul>
+<li>% Households by Housing Type and Tenure by Age Group</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">Tenure</th>
+<th style="text-align: right;">&lt;25</th>
+<th style="text-align: right;">25-44</th>
+<th style="text-align: right;">45-54</th>
+<th style="text-align: right;">55-64</th>
+<th style="text-align: right;">65+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">2.03</td>
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">2.76</td>
+<td style="text-align: right;">3.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">72.35</td>
+<td style="text-align: right;">35.53</td>
+<td style="text-align: right;">19.19</td>
+<td style="text-align: right;">16.48</td>
+<td style="text-align: right;">20.53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">6.76</td>
+<td style="text-align: right;">41.52</td>
+<td style="text-align: right;">68.63</td>
+<td style="text-align: right;">71.09</td>
+<td style="text-align: right;">70.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">20.67</td>
+<td style="text-align: right;">20.91</td>
+<td style="text-align: right;">11.38</td>
+<td style="text-align: right;">9.67</td>
+<td style="text-align: right;">5.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">0.42</td>
+<td style="text-align: right;">2.20</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">2.76</td>
+<td style="text-align: right;">3.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">72.21</td>
+<td style="text-align: right;">35.47</td>
+<td style="text-align: right;">19.16</td>
+<td style="text-align: right;">16.48</td>
+<td style="text-align: right;">20.53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">6.75</td>
+<td style="text-align: right;">41.45</td>
+<td style="text-align: right;">68.54</td>
+<td style="text-align: right;">71.09</td>
+<td style="text-align: right;">70.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013 ACS1</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">20.63</td>
+<td style="text-align: right;">20.87</td>
+<td style="text-align: right;">11.37</td>
+<td style="text-align: right;">9.67</td>
+<td style="text-align: right;">5.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">1.03</td>
+<td style="text-align: right;">1.85</td>
+<td style="text-align: right;">1.79</td>
+<td style="text-align: right;">2.38</td>
+<td style="text-align: right;">3.72</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">73.47</td>
+<td style="text-align: right;">33.61</td>
+<td style="text-align: right;">19.06</td>
+<td style="text-align: right;">15.74</td>
+<td style="text-align: right;">21.02</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">6.60</td>
+<td style="text-align: right;">43.83</td>
+<td style="text-align: right;">66.99</td>
+<td style="text-align: right;">72.87</td>
+<td style="text-align: right;">69.53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2014 ACS5</td>
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">18.90</td>
+<td style="text-align: right;">20.71</td>
+<td style="text-align: right;">12.16</td>
+<td style="text-align: right;">9.01</td>
+<td style="text-align: right;">5.73</td>
+</tr>
+</tbody>
+</table>
+</section><section id="dist.-of-non-wghting-vars-1" class="slide level2">
+<h1>Dist. of Non-Wghting Vars (1)</h1>
+<!-- - % Households by Income Group -->
+<table>
+<caption>% Households by Income Group</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HHIncome</th>
+<th style="text-align: right;">SP original</th>
+<th style="text-align: right;">SP weighted</th>
+<th style="text-align: right;">2013 ACS1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&lt;$25k</td>
+<td style="text-align: right;">8.02</td>
+<td style="text-align: right;">12.88</td>
+<td style="text-align: right;">19.45</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$25-49.9k</td>
+<td style="text-align: right;">15.90</td>
+<td style="text-align: right;">21.07</td>
+<td style="text-align: right;">23.30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$50-74.9k</td>
+<td style="text-align: right;">20.95</td>
+<td style="text-align: right;">21.77</td>
+<td style="text-align: right;">18.46</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$75-99.9k</td>
+<td style="text-align: right;">18.06</td>
+<td style="text-align: right;">15.57</td>
+<td style="text-align: right;">13.46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$100-149.9k</td>
+<td style="text-align: right;">22.85</td>
+<td style="text-align: right;">17.72</td>
+<td style="text-align: right;">14.43</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$150k+</td>
+<td style="text-align: right;">14.22</td>
+<td style="text-align: right;">10.99</td>
+<td style="text-align: right;">10.90</td>
+</tr>
+</tbody>
+</table>
+</section><section id="dist.-of-non-wghting-vars-2" class="slide level2">
+<h1>Dist. of Non-Wghting Vars (2)</h1>
+<!-- - % Households by Income Group by County -->
+<table>
+<caption>% Households by Income Group by County (SP weighted)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Stage</th>
+<th style="text-align: left;">HHIncome</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+<th style="text-align: right;">Clark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SP original</td>
+<td style="text-align: left;">&lt;$25k</td>
+<td style="text-align: right;">5.97</td>
+<td style="text-align: right;">9.40</td>
+<td style="text-align: right;">6.02</td>
+<td style="text-align: right;">16.67</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP original</td>
+<td style="text-align: left;">$25-49.9k</td>
+<td style="text-align: right;">15.39</td>
+<td style="text-align: right;">17.40</td>
+<td style="text-align: right;">13.62</td>
+<td style="text-align: right;">18.38</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SP original</td>
+<td style="text-align: left;">$50-74.9k</td>
+<td style="text-align: right;">22.57</td>
+<td style="text-align: right;">21.59</td>
+<td style="text-align: right;">19.06</td>
+<td style="text-align: right;">21.79</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP original</td>
+<td style="text-align: left;">$75-99.9k</td>
+<td style="text-align: right;">16.88</td>
+<td style="text-align: right;">17.81</td>
+<td style="text-align: right;">19.49</td>
+<td style="text-align: right;">14.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SP original</td>
+<td style="text-align: left;">$100-149.9k</td>
+<td style="text-align: right;">23.04</td>
+<td style="text-align: right;">20.32</td>
+<td style="text-align: right;">27.14</td>
+<td style="text-align: right;">17.95</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP original</td>
+<td style="text-align: left;">$150k+</td>
+<td style="text-align: right;">16.14</td>
+<td style="text-align: right;">13.49</td>
+<td style="text-align: right;">14.68</td>
+<td style="text-align: right;">11.11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">&lt;$25k</td>
+<td style="text-align: right;">8.56</td>
+<td style="text-align: right;">14.90</td>
+<td style="text-align: right;">10.52</td>
+<td style="text-align: right;">16.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">$25-49.9k</td>
+<td style="text-align: right;">18.36</td>
+<td style="text-align: right;">22.83</td>
+<td style="text-align: right;">21.32</td>
+<td style="text-align: right;">19.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">$50-74.9k</td>
+<td style="text-align: right;">23.64</td>
+<td style="text-align: right;">21.50</td>
+<td style="text-align: right;">19.79</td>
+<td style="text-align: right;">23.07</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">$75-99.9k</td>
+<td style="text-align: right;">15.82</td>
+<td style="text-align: right;">15.23</td>
+<td style="text-align: right;">16.97</td>
+<td style="text-align: right;">14.22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">$100-149.9k</td>
+<td style="text-align: right;">20.13</td>
+<td style="text-align: right;">15.53</td>
+<td style="text-align: right;">20.62</td>
+<td style="text-align: right;">15.95</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SP weighted</td>
+<td style="text-align: left;">$150k+</td>
+<td style="text-align: right;">13.50</td>
+<td style="text-align: right;">10.01</td>
+<td style="text-align: right;">10.78</td>
+<td style="text-align: right;">10.78</td>
+</tr>
+</tbody>
+</table>
+</section><section id="dist.-of-non-wghting-vars-2-1" class="slide level2">
+<h1>Dist. of Non-Wghting Vars (2)</h1>
+<table>
+<caption>% Households by Income Group by County (2013 ACS1)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">HHIncome</th>
+<th style="text-align: right;">Clackms</th>
+<th style="text-align: right;">Clark</th>
+<th style="text-align: right;">Multnh</th>
+<th style="text-align: right;">Washgn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&lt;$25k</td>
+<td style="text-align: right;">14.85</td>
+<td style="text-align: right;">17.24</td>
+<td style="text-align: right;">23.92</td>
+<td style="text-align: right;">17.80</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$25-49.9k</td>
+<td style="text-align: right;">22.37</td>
+<td style="text-align: right;">25.19</td>
+<td style="text-align: right;">23.22</td>
+<td style="text-align: right;">22.62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$50-74.9k</td>
+<td style="text-align: right;">20.31</td>
+<td style="text-align: right;">20.98</td>
+<td style="text-align: right;">17.24</td>
+<td style="text-align: right;">17.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$75-99.9k</td>
+<td style="text-align: right;">13.77</td>
+<td style="text-align: right;">12.86</td>
+<td style="text-align: right;">13.20</td>
+<td style="text-align: right;">14.08</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$100-149.9k</td>
+<td style="text-align: right;">15.26</td>
+<td style="text-align: right;">14.36</td>
+<td style="text-align: right;">12.03</td>
+<td style="text-align: right;">17.52</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$150k+</td>
+<td style="text-align: right;">13.44</td>
+<td style="text-align: right;">9.35</td>
+<td style="text-align: right;">10.39</td>
+<td style="text-align: right;">10.99</td>
+</tr>
+</tbody>
+</table>
+</section><section id="dist.-of-non-wghting-vars-4" class="slide level2">
+<h1>Dist. of Non-Wghting Vars (4)</h1>
+<p>% Tenure Status by Income</p>
+<table>
+<caption>SP weighted</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">tenure</th>
+<th style="text-align: right;">&lt;$25k</th>
+<th style="text-align: right;">$25-49.9k</th>
+<th style="text-align: right;">$50-74.9k</th>
+<th style="text-align: right;">$75-99.9k</th>
+<th style="text-align: right;">$100-149.9k</th>
+<th style="text-align: right;">$150k+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">23.81</td>
+<td style="text-align: right;">32.51</td>
+<td style="text-align: right;">57.34</td>
+<td style="text-align: right;">73.82</td>
+<td style="text-align: right;">87.16</td>
+<td style="text-align: right;">93.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">76.19</td>
+<td style="text-align: right;">67.49</td>
+<td style="text-align: right;">42.66</td>
+<td style="text-align: right;">26.18</td>
+<td style="text-align: right;">12.84</td>
+<td style="text-align: right;">6.97</td>
+</tr>
+</tbody>
+</table>
+<p>  <!-- - % Tenure Status by Income (ACS) --></p>
+<table>
+<caption>2013 ACS1</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">tenure</th>
+<th style="text-align: right;">&lt;$25k</th>
+<th style="text-align: right;">$25-49.9k</th>
+<th style="text-align: right;">$50-74.9k</th>
+<th style="text-align: right;">$75-99.9k</th>
+<th style="text-align: right;">$100-149.9k</th>
+<th style="text-align: right;">$150k+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">34.12</td>
+<td style="text-align: right;">45.93</td>
+<td style="text-align: right;">60.67</td>
+<td style="text-align: right;">72.56</td>
+<td style="text-align: right;">81.58</td>
+<td style="text-align: right;">87.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">65.88</td>
+<td style="text-align: right;">54.07</td>
+<td style="text-align: right;">39.33</td>
+<td style="text-align: right;">27.44</td>
+<td style="text-align: right;">18.42</td>
+<td style="text-align: right;">12.6</td>
+</tr>
+</tbody>
+</table>
+</section><section id="dist.-of-non-wghting-vars-5" class="slide level2">
+<h1>Dist. of Non-Wghting Vars (5)</h1>
+<p>% Housing Type by Income</p>
+<table>
+<caption>SP weighted</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">htype</th>
+<th style="text-align: right;">&lt;$25k</th>
+<th style="text-align: right;">$25-49.9k</th>
+<th style="text-align: right;">$50-74.9k</th>
+<th style="text-align: right;">$75-99.9k</th>
+<th style="text-align: right;">$100-149.9k</th>
+<th style="text-align: right;">$150k+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: right;">53.82</td>
+<td style="text-align: right;">48.7</td>
+<td style="text-align: right;">31.66</td>
+<td style="text-align: right;">18.39</td>
+<td style="text-align: right;">8.08</td>
+<td style="text-align: right;">5.79</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: right;">46.18</td>
+<td style="text-align: right;">51.3</td>
+<td style="text-align: right;">68.34</td>
+<td style="text-align: right;">81.61</td>
+<td style="text-align: right;">91.92</td>
+<td style="text-align: right;">94.21</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<table>
+<caption>2013 ACS1</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">htype</th>
+<th style="text-align: right;">&lt;$25k</th>
+<th style="text-align: right;">$25-49.9k</th>
+<th style="text-align: right;">$50-74.9k</th>
+<th style="text-align: right;">$75-99.9k</th>
+<th style="text-align: right;">$100-149.9k</th>
+<th style="text-align: right;">$150k+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: right;">53.16</td>
+<td style="text-align: right;">40.22</td>
+<td style="text-align: right;">25.01</td>
+<td style="text-align: right;">15.94</td>
+<td style="text-align: right;">11.56</td>
+<td style="text-align: right;">8.63</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: right;">46.84</td>
+<td style="text-align: right;">59.78</td>
+<td style="text-align: right;">74.99</td>
+<td style="text-align: right;">84.06</td>
+<td style="text-align: right;">88.44</td>
+<td style="text-align: right;">91.37</td>
+</tr>
+</tbody>
+</table>
+</section><section id="dist.-of-non-wghting-vars-6" class="slide level2">
+<h1>Dist. of Non-Wghting Vars (6)</h1>
+<table>
+<caption>% Housing Type &amp; Tenure Status by Income (SP weighted)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">tenure</th>
+<th style="text-align: right;">&lt;$25k</th>
+<th style="text-align: right;">$25-49.9k</th>
+<th style="text-align: right;">$50-74.9k</th>
+<th style="text-align: right;">$75-99.9k</th>
+<th style="text-align: right;">$100-149.9k</th>
+<th style="text-align: right;">$150k+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">2.04</td>
+<td style="text-align: right;">1.62</td>
+<td style="text-align: right;">2.30</td>
+<td style="text-align: right;">2.89</td>
+<td style="text-align: right;">2.55</td>
+<td style="text-align: right;">2.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">51.78</td>
+<td style="text-align: right;">47.08</td>
+<td style="text-align: right;">29.36</td>
+<td style="text-align: right;">15.50</td>
+<td style="text-align: right;">5.53</td>
+<td style="text-align: right;">3.47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">21.77</td>
+<td style="text-align: right;">30.90</td>
+<td style="text-align: right;">55.04</td>
+<td style="text-align: right;">70.93</td>
+<td style="text-align: right;">84.62</td>
+<td style="text-align: right;">90.70</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">24.41</td>
+<td style="text-align: right;">20.40</td>
+<td style="text-align: right;">13.30</td>
+<td style="text-align: right;">10.68</td>
+<td style="text-align: right;">7.30</td>
+<td style="text-align: right;">3.51</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>2013 ACS1</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Housing Type</th>
+<th style="text-align: left;">tenure</th>
+<th style="text-align: right;">&lt;$25k</th>
+<th style="text-align: right;">$25-49.9k</th>
+<th style="text-align: right;">$50-74.9k</th>
+<th style="text-align: right;">$75-99.9k</th>
+<th style="text-align: right;">$100-149.9k</th>
+<th style="text-align: right;">$150k+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">1.83</td>
+<td style="text-align: right;">2.25</td>
+<td style="text-align: right;">2.39</td>
+<td style="text-align: right;">2.70</td>
+<td style="text-align: right;">2.16</td>
+<td style="text-align: right;">3.29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">51.33</td>
+<td style="text-align: right;">37.97</td>
+<td style="text-align: right;">22.62</td>
+<td style="text-align: right;">13.24</td>
+<td style="text-align: right;">9.40</td>
+<td style="text-align: right;">5.34</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">OWN</td>
+<td style="text-align: right;">32.29</td>
+<td style="text-align: right;">43.68</td>
+<td style="text-align: right;">58.28</td>
+<td style="text-align: right;">69.86</td>
+<td style="text-align: right;">79.42</td>
+<td style="text-align: right;">84.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SF</td>
+<td style="text-align: left;">RENT</td>
+<td style="text-align: right;">14.55</td>
+<td style="text-align: right;">16.10</td>
+<td style="text-align: right;">16.71</td>
+<td style="text-align: right;">14.20</td>
+<td style="text-align: right;">9.02</td>
+<td style="text-align: right;">7.26</td>
+</tr>
+</tbody>
+</table>
+</section><section id="dist.-of-non-wghting-vars-7" class="slide level2">
+<h1>Dist. of Non-Wghting Vars (7)</h1>
+<table>
+<caption>% Households in Income Group by Age Group (SP weighted)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">hhinc6</th>
+<th style="text-align: right;">&lt;25</th>
+<th style="text-align: right;">25-44</th>
+<th style="text-align: right;">45-54</th>
+<th style="text-align: right;">55-64</th>
+<th style="text-align: right;">65+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&lt;$25k</td>
+<td style="text-align: right;">47.57</td>
+<td style="text-align: right;">13.00</td>
+<td style="text-align: right;">7.40</td>
+<td style="text-align: right;">14.43</td>
+<td style="text-align: right;">11.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$25-49.9k</td>
+<td style="text-align: right;">34.76</td>
+<td style="text-align: right;">24.89</td>
+<td style="text-align: right;">12.69</td>
+<td style="text-align: right;">16.80</td>
+<td style="text-align: right;">23.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$50-74.9k</td>
+<td style="text-align: right;">14.50</td>
+<td style="text-align: right;">22.22</td>
+<td style="text-align: right;">22.81</td>
+<td style="text-align: right;">20.54</td>
+<td style="text-align: right;">22.22</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$75-99.9k</td>
+<td style="text-align: right;">1.57</td>
+<td style="text-align: right;">15.56</td>
+<td style="text-align: right;">16.53</td>
+<td style="text-align: right;">15.25</td>
+<td style="text-align: right;">17.13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$100-149.9k</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">16.72</td>
+<td style="text-align: right;">24.03</td>
+<td style="text-align: right;">17.73</td>
+<td style="text-align: right;">16.16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$150k+</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">7.61</td>
+<td style="text-align: right;">16.54</td>
+<td style="text-align: right;">15.25</td>
+<td style="text-align: right;">9.49</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>2013 ACS1</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">hhinc6</th>
+<th style="text-align: right;">&lt;25</th>
+<th style="text-align: right;">25-44</th>
+<th style="text-align: right;">45-54</th>
+<th style="text-align: right;">55-64</th>
+<th style="text-align: right;">65+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&lt;$25k</td>
+<td style="text-align: right;">43.84</td>
+<td style="text-align: right;">16.53</td>
+<td style="text-align: right;">14.36</td>
+<td style="text-align: right;">16.17</td>
+<td style="text-align: right;">29.09</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$25-49.9k</td>
+<td style="text-align: right;">33.20</td>
+<td style="text-align: right;">22.09</td>
+<td style="text-align: right;">19.09</td>
+<td style="text-align: right;">22.18</td>
+<td style="text-align: right;">29.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$50-74.9k</td>
+<td style="text-align: right;">16.19</td>
+<td style="text-align: right;">19.58</td>
+<td style="text-align: right;">17.14</td>
+<td style="text-align: right;">18.29</td>
+<td style="text-align: right;">18.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$75-99.9k</td>
+<td style="text-align: right;">3.25</td>
+<td style="text-align: right;">16.02</td>
+<td style="text-align: right;">14.24</td>
+<td style="text-align: right;">13.13</td>
+<td style="text-align: right;">9.83</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">$100-149.9k</td>
+<td style="text-align: right;">2.53</td>
+<td style="text-align: right;">15.60</td>
+<td style="text-align: right;">19.74</td>
+<td style="text-align: right;">15.63</td>
+<td style="text-align: right;">7.93</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">$150k+</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">10.18</td>
+<td style="text-align: right;">15.43</td>
+<td style="text-align: right;">14.59</td>
+<td style="text-align: right;">5.93</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section><section id="next-steps" class="titleslide slide level1"><h1>Next steps</h1></section><section id="next-steps-1" class="slide level2">
+<h1>Next steps</h1>
+<ul>
+<li>Sampling bias</li>
+<li>Options for weighting factors</li>
+<li>Options for PUMS: 1-year vs 5-year</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="Task1_files/reveal.js-3.3.0/lib/js/head.min.js"></script>
+  <script src="Task1_files/reveal.js-3.3.0/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

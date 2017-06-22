@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Metro SP Phase II Task B</title>
+    <meta charset="utf-8">
+    <link href="Task2_slides_files/remark-css/example.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Metro SP Phase II Task B
+## Model Estimation
+
+---
+
+
+&lt;style&gt;
+  @page {
+    size: 1210px 681px;
+    margin: 0;
+  }
+  
+  @media print {
+    .remark-slide-scaler {
+      width: 100% !important;
+      height: 100% !important;
+      transform: scale(1) !important;
+      top: 0 !important;
+      left: 0 !important;
+    }
+  }
+&lt;/style&gt;
+
+
+
+# Where Are We
+
+Three weights from Task 1 to be tested in Task 2:
+- b. county x htype2 x tenure x age_group5 x hhinc2
+- d. county x htype2 x tenure x age_group3 x hhinc4a
+- e. county x htype2 x tenure x age_group5 x hhinc4b
+
+Replicate results using Roger's and Sonny's weights
+- rbc
+- sc
+
+
+
+---
+
+# Coefficients (No Weights)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;m1&lt;/td&gt;&lt;td&gt;m1 asc&lt;/td&gt;&lt;td&gt;m2&lt;/td&gt;&lt;td&gt;m2 asc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.079&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.088&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;0.497&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.574&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.178&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.100&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.881&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.915&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.869&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.907&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.566&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.574&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.606&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.616&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.401&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.416&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.347&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.362&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.589&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.606&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.551&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.569&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.122&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.137&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.100&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.115&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;58,825&lt;/td&gt;&lt;td&gt;58,825&lt;/td&gt;&lt;td&gt;58,825&lt;/td&gt;&lt;td&gt;58,825&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-36,224.670&lt;/td&gt;&lt;td&gt;-36,204.050&lt;/td&gt;&lt;td&gt;-35,973.980&lt;/td&gt;&lt;td&gt;-35,948.500&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="4" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP (No Weights)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; model &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; commute &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.296 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.843 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m1 asc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.247 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.033 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m1 RBC &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.510 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.900 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m2 (renting) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.251 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.820 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m2 (owning) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.447 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.000 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m2 asc (renting) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.218 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.228 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m2 asc (owning) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.391 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.096 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m2 RBC (renting) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.360 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.570 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; m2 RBC (owning) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.660 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.760 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by Source (No Weights)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Recruited&lt;/td&gt;&lt;td&gt;Panel&lt;/td&gt;&lt;td&gt;Opt-in&lt;/td&gt;&lt;td&gt;All&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.105&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.026&lt;/td&gt;&lt;td&gt;0.090&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.088&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;0.050&lt;/td&gt;&lt;td&gt;-0.315&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.120&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.100&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.015&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.014&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.018&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0001&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;1.014&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.798&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.900&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.907&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.643&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.640&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.607&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.616&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.243&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.116&lt;/td&gt;&lt;td&gt;0.481&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.362&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.506&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.210&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.691&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.569&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.143&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.223&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.078&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.115&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;18,207&lt;/td&gt;&lt;td&gt;7,368&lt;/td&gt;&lt;td&gt;33,250&lt;/td&gt;&lt;td&gt;58,825&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-11,110.900&lt;/td&gt;&lt;td&gt;-4,430.548&lt;/td&gt;&lt;td&gt;-20,208.860&lt;/td&gt;&lt;td&gt;-35,948.500&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="4" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by Source (No Weights)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; sourcechr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Recruited &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.248 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.745 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.445 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31.882 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Panel &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.319 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.796 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.581 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.849 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Opt-in &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.139 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.427 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.243 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.743 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.218 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.228 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.391 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.096 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients with weights
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.088&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.083&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.112&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.088&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.074&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.088&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.100&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.356&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.356&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.352&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.290&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.225&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.021&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.907&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.633&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.621&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.631&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.751&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.766&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.616&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.538&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.517&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.521&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.579&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.572&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.362&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.309&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.288&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.280&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.449&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.414&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.569&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.518&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.530&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.520&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.597&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.592&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.115&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.156&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.161&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.150&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.122&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.121&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;58,825&lt;/td&gt;&lt;td&gt;57,871&lt;/td&gt;&lt;td&gt;57,826&lt;/td&gt;&lt;td&gt;57,691&lt;/td&gt;&lt;td&gt;58,825&lt;/td&gt;&lt;td&gt;57,988&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-35,948.500&lt;/td&gt;&lt;td&gt;-35,034.130&lt;/td&gt;&lt;td&gt;-34,967.650&lt;/td&gt;&lt;td&gt;-34,924.510&lt;/td&gt;&lt;td&gt;-35,701.800&lt;/td&gt;&lt;td&gt;-35,326.410&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP with Weights
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.218 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.228 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.391 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.096 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.446 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.845 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.873 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.973 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.443 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.577 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.863 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.320 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.430 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.324 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.826 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.444 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.364 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.711 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.676 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.150 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.361 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.580 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.665 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.545 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--- 
+
+
+
+---
+
+# Coefficients by County (All)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.088&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.083&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.112&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.088&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.074&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.088&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.100&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.356&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.356&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.352&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.290&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.225&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.021&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.907&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.633&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.621&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.631&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.751&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.766&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.616&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.538&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.517&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.521&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.579&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.572&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.362&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.309&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.288&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.280&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.449&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.414&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.569&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.518&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.530&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.520&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.597&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.592&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.115&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.156&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.161&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.150&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.122&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.121&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;58,825&lt;/td&gt;&lt;td&gt;57,871&lt;/td&gt;&lt;td&gt;57,826&lt;/td&gt;&lt;td&gt;57,691&lt;/td&gt;&lt;td&gt;58,825&lt;/td&gt;&lt;td&gt;57,988&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-35,948.500&lt;/td&gt;&lt;td&gt;-35,034.130&lt;/td&gt;&lt;td&gt;-34,967.650&lt;/td&gt;&lt;td&gt;-34,924.510&lt;/td&gt;&lt;td&gt;-35,701.800&lt;/td&gt;&lt;td&gt;-35,326.410&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by County (All)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; countychr &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.218 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.228 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.391 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.096 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.446 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.845 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.873 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.973 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.443 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.577 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.863 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.320 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.430 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.324 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.826 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.444 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.364 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.711 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.676 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.150 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; All &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.361 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.580 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.665 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.545 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by County (Multnh)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.091&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.088&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.104&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.086&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.076&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.089&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.078&lt;/td&gt;&lt;td&gt;-0.316&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.292&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.291&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.263&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.209&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.018&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;-0.0001&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0001&lt;/td&gt;&lt;td&gt;0.0001&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.927&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.683&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.703&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.683&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.785&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.808&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.609&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.542&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.560&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.541&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.568&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.574&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.856&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.933&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.892&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.907&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.957&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.884&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;1.056&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.079&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.071&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.056&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.104&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.071&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.057&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.084&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.075&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.072&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.087&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.065&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;28,171&lt;/td&gt;&lt;td&gt;27,964&lt;/td&gt;&lt;td&gt;27,910&lt;/td&gt;&lt;td&gt;27,937&lt;/td&gt;&lt;td&gt;28,171&lt;/td&gt;&lt;td&gt;27,964&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-16,836.260&lt;/td&gt;&lt;td&gt;-16,550.890&lt;/td&gt;&lt;td&gt;-16,435.860&lt;/td&gt;&lt;td&gt;-16,538.900&lt;/td&gt;&lt;td&gt;-16,748.570&lt;/td&gt;&lt;td&gt;-16,614.960&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by County (Multnh)
+
+[1] "Multnh"
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; countychr &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Multnh &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.082 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.734 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.139 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.505 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Multnh &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.140 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.791 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.255 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.637 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Multnh &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.125 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.972 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.224 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.654 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Multnh &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.143 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.656 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.252 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.642 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Multnh &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.046 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.593 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.081 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25.872 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Multnh &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.073 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.558 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.128 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.141 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by County (Washgn)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.083&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.087&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.142&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.113&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.072&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.087&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;0.052&lt;/td&gt;&lt;td&gt;-0.334&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.252&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.293&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.220&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.067&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.021&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.018&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.016&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;1.231&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.850&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.780&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.828&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.952&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.059&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.735&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.618&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.578&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.592&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.644&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.675&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.060&lt;/td&gt;&lt;td&gt;0.177&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.267&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.155&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.202&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.117&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.237&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.305&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.365&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.313&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.316&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.271&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.191&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.251&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.260&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.219&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.240&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.218&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;18,920&lt;/td&gt;&lt;td&gt;18,362&lt;/td&gt;&lt;td&gt;18,362&lt;/td&gt;&lt;td&gt;18,281&lt;/td&gt;&lt;td&gt;18,920&lt;/td&gt;&lt;td&gt;18,416&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-11,191.150&lt;/td&gt;&lt;td&gt;-10,753.380&lt;/td&gt;&lt;td&gt;-10,795.070&lt;/td&gt;&lt;td&gt;-10,732.400&lt;/td&gt;&lt;td&gt;-11,128.090&lt;/td&gt;&lt;td&gt;-10,882.840&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by County (Washgn)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; countychr &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Washgn &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.148 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.627 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.236 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.547 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Washgn &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.454 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.913 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.815 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25.008 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Washgn &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.498 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.475 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.876 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25.461 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Washgn &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.452 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.601 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.797 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23.987 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Washgn &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.392 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.569 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.667 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23.063 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Washgn &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.318 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.051 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.522 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.413 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by County (Clackms)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.076&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.070&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.047&lt;/td&gt;&lt;td&gt;0.068&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.071&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.075&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.069&lt;/td&gt;&lt;td&gt;-0.409&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.419&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.448&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.185&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.193&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.015&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.015&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;1.004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.738&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.600&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.712&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.045&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.859&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.675&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.592&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.535&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.605&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.724&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.622&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;-0.356&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.351&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.380&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.370&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.296&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.266&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;-0.055&lt;/td&gt;&lt;td&gt;-0.121&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.113&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.115&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.048&lt;/td&gt;&lt;td&gt;-0.052&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.040&lt;/td&gt;&lt;td&gt;-0.011&lt;/td&gt;&lt;td&gt;-0.003&lt;/td&gt;&lt;td&gt;-0.006&lt;/td&gt;&lt;td&gt;-0.030&lt;/td&gt;&lt;td&gt;0.038&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;9,650&lt;/td&gt;&lt;td&gt;9,497&lt;/td&gt;&lt;td&gt;9,497&lt;/td&gt;&lt;td&gt;9,434&lt;/td&gt;&lt;td&gt;9,650&lt;/td&gt;&lt;td&gt;9,524&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-5,724.411&lt;/td&gt;&lt;td&gt;-5,654.951&lt;/td&gt;&lt;td&gt;-5,664.706&lt;/td&gt;&lt;td&gt;-5,609.110&lt;/td&gt;&lt;td&gt;-5,635.713&lt;/td&gt;&lt;td&gt;-5,683.615&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by County (Clackms)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; countychr &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clackms &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.299 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.610 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.555 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.591 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clackms &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.482 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.424 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.041 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.990 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clackms &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.597 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.639 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.240 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30.412 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clackms &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.515 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.513 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.098 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.814 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clackms &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.304 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.244 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.557 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20.630 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clackms &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.420 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.284 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.797 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23.335 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by County (Clark)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.035&lt;/td&gt;&lt;td&gt;0.089&lt;/td&gt;&lt;td&gt;0.165&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.092&lt;/td&gt;&lt;td&gt;0.013&lt;/td&gt;&lt;td&gt;0.085&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.229&lt;/td&gt;&lt;td&gt;-0.201&lt;/td&gt;&lt;td&gt;-0.370&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.264&lt;/td&gt;&lt;td&gt;-0.360&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.302&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.012&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.016&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.016&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.016&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0002&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0003&lt;/td&gt;&lt;td&gt;0.0003&lt;/td&gt;&lt;td&gt;0.0004&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;1.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.750&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.803&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.785&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.933&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.800&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.664&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.582&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.528&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.522&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.610&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.618&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;-0.037&lt;/td&gt;&lt;td&gt;-0.153&lt;/td&gt;&lt;td&gt;-0.255&lt;/td&gt;&lt;td&gt;-0.261&lt;/td&gt;&lt;td&gt;-0.180&lt;/td&gt;&lt;td&gt;-0.080&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.350&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.355&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.371&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.407&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.205&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.351&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.318&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.316&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.337&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.378&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.026&lt;/td&gt;&lt;td&gt;0.271&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;2,084&lt;/td&gt;&lt;td&gt;2,048&lt;/td&gt;&lt;td&gt;2,057&lt;/td&gt;&lt;td&gt;2,039&lt;/td&gt;&lt;td&gt;2,084&lt;/td&gt;&lt;td&gt;2,084&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-1,224.576&lt;/td&gt;&lt;td&gt;-1,201.539&lt;/td&gt;&lt;td&gt;-1,213.794&lt;/td&gt;&lt;td&gt;-1,197.124&lt;/td&gt;&lt;td&gt;-1,225.758&lt;/td&gt;&lt;td&gt;-1,228.305&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by County (Clark)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; countychr &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clark &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.156 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.587 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.294 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.186 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clark &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.315 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.453 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.598 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.730 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clark &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.218 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.768 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.447 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.947 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clark &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.211 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.106 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.408 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.648 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clark &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.292 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.544 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.610 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26.262 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Clark &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.281 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.658 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.540 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20.489 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+
+---
+
+# Coefficients by Income Group (&lt;$25k)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.045&lt;/td&gt;&lt;td&gt;0.096&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.105&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.096&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.025&lt;/td&gt;&lt;td&gt;0.049&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.636&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.849&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.814&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.849&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.773&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.679&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.024&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.023&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.024&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.021&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.423&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.134&lt;/td&gt;&lt;td&gt;0.133&lt;/td&gt;&lt;td&gt;0.134&lt;/td&gt;&lt;td&gt;0.436&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.305&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.465&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.292&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.281&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.292&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.516&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.384&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.408&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.318&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.368&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.318&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.520&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.508&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.486&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.486&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.560&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.486&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.628&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.550&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.121&lt;/td&gt;&lt;td&gt;0.195&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.309&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.195&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.129&lt;/td&gt;&lt;td&gt;0.168&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;4,684&lt;/td&gt;&lt;td&gt;4,531&lt;/td&gt;&lt;td&gt;4,648&lt;/td&gt;&lt;td&gt;4,531&lt;/td&gt;&lt;td&gt;4,684&lt;/td&gt;&lt;td&gt;4,648&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-2,806.172&lt;/td&gt;&lt;td&gt;-2,672.268&lt;/td&gt;&lt;td&gt;-2,767.698&lt;/td&gt;&lt;td&gt;-2,672.268&lt;/td&gt;&lt;td&gt;-2,741.361&lt;/td&gt;&lt;td&gt;-2,768.800&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by Income Group (&lt;$25k)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; hhinc2 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;$25k &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.323 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.995 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.579 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.930 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;$25k &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.414 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.306 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.799 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19.908 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;$25k &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.460 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.109 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.901 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.767 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;$25k &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.414 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.306 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.799 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 19.908 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;$25k &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.223 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.630 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.375 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12.802 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;$25k &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.346 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.094 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.586 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.410 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by Income Group ($25k+)
+
+[1] "$25k+"
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.089&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.081&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.112&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.087&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.081&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.093&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.006&lt;/td&gt;&lt;td&gt;-0.166&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.224&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.160&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.181&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.129&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.016&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.018&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.018&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.979&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.850&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.772&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.848&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.835&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.865&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.632&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.616&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.573&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.596&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.593&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.600&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.370&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.333&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.294&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.298&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.459&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.413&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.582&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.533&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.531&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.537&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.604&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.602&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.109&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.141&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.129&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.135&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.121&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.113&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;53,385&lt;/td&gt;&lt;td&gt;53,340&lt;/td&gt;&lt;td&gt;53,178&lt;/td&gt;&lt;td&gt;53,160&lt;/td&gt;&lt;td&gt;53,385&lt;/td&gt;&lt;td&gt;53,340&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-32,584.700&lt;/td&gt;&lt;td&gt;-32,228.570&lt;/td&gt;&lt;td&gt;-32,095.170&lt;/td&gt;&lt;td&gt;-32,121.980&lt;/td&gt;&lt;td&gt;-32,391.290&lt;/td&gt;&lt;td&gt;-32,456.850&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by Income Group ($25k+)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; hhinc2 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; $25k+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.162 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.161 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.275 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.498 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; $25k+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.324 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.281 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.585 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.595 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; $25k+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.358 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.089 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.659 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.755 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; $25k+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.304 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.621 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.538 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25.897 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; $25k+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.328 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.872 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.583 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.241 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; $25k+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.294 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.519 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.523 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.328 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+
+# Coefficients by Tenure (OWN)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.083&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.068&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.077&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.069&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.077&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.090&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;0.227&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.129&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.134&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.096&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.255&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.266&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.014&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.014&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.014&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.013&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.00001&lt;/td&gt;&lt;td&gt;0.0001&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0001&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0001&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.00002&lt;/td&gt;&lt;td&gt;-0.00003&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;1.062&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.986&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.972&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.070&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.122&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.639&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.604&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.619&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.604&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.638&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.655&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.258&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.096&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.065&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.040&lt;/td&gt;&lt;td&gt;0.222&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.241&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.501&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.405&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.388&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.388&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.454&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.485&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.104&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.154&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.161&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.153&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.110&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.098&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;46,919&lt;/td&gt;&lt;td&gt;45,992&lt;/td&gt;&lt;td&gt;45,992&lt;/td&gt;&lt;td&gt;45,857&lt;/td&gt;&lt;td&gt;46,919&lt;/td&gt;&lt;td&gt;46,109&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-28,786.190&lt;/td&gt;&lt;td&gt;-28,019.600&lt;/td&gt;&lt;td&gt;-27,910.690&lt;/td&gt;&lt;td&gt;-27,808.210&lt;/td&gt;&lt;td&gt;-28,813.400&lt;/td&gt;&lt;td&gt;-28,186.570&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by Tenure
+
+[1] "OWN"
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; tenurechr &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; OWN &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.013 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.149 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.020 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24.372 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; OWN &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.137 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.798 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.223 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24.117 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; OWN &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.121 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.909 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.193 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.189 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; OWN &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.127 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.104 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.206 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.897 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; OWN &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.022 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.241 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.032 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.600 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; OWN &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.034 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.302 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.050 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.620 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by Tenure (RENT)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.118&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.108&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.166&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.130&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.080&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.106&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.088&lt;/td&gt;&lt;td&gt;-0.119&lt;/td&gt;&lt;td&gt;-0.107&lt;/td&gt;&lt;td&gt;-0.147&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.164&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.098&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.018&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.018&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.018&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.723&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.595&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.577&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.561&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.628&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.563&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.469&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.438&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.389&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.393&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.454&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.397&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.900&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.731&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.730&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.747&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.882&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.838&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.935&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.790&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.846&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.820&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.901&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.896&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.176&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.190&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.187&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.170&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.177&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.189&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;11,906&lt;/td&gt;&lt;td&gt;11,879&lt;/td&gt;&lt;td&gt;11,834&lt;/td&gt;&lt;td&gt;11,834&lt;/td&gt;&lt;td&gt;11,906&lt;/td&gt;&lt;td&gt;11,879&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-6,848.072&lt;/td&gt;&lt;td&gt;-6,811.344&lt;/td&gt;&lt;td&gt;-6,790.706&lt;/td&gt;&lt;td&gt;-6,856.377&lt;/td&gt;&lt;td&gt;-6,827.162&lt;/td&gt;&lt;td&gt;-6,888.553&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by Tenure (RENT)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; tenurechr &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; RENT &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.247 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.832 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.303 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.837 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; RENT &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.247 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.589 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.298 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.359 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; RENT &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.239 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.506 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.290 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.317 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; RENT &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.269 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.636 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.335 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.731 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; RENT &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.291 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.447 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.365 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.820 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; RENT &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.309 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.286 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.370 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.117 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+
+---
+
+# Coefficients by htype (SF)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.106&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.070&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.084&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.079&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.094&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.096&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;0.180&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.040&lt;/td&gt;&lt;td&gt;0.043&lt;/td&gt;&lt;td&gt;0.051&lt;/td&gt;&lt;td&gt;0.061&lt;/td&gt;&lt;td&gt;0.146&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.011&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.010&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.010&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.010&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.009&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.011&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;-0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.0001&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.0001&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.0001&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.0002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;1.324&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.291&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.292&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.249&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.413&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.330&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.747&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.761&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.751&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.723&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.800&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.758&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.271&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.132&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.120&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.102&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.292&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.303&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.502&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.398&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.399&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.413&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.491&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.508&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.084&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.126&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.138&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.136&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.067&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.082&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;49,777&lt;/td&gt;&lt;td&gt;48,922&lt;/td&gt;&lt;td&gt;48,913&lt;/td&gt;&lt;td&gt;48,868&lt;/td&gt;&lt;td&gt;49,777&lt;/td&gt;&lt;td&gt;49,012&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-30,074.570&lt;/td&gt;&lt;td&gt;-29,309.000&lt;/td&gt;&lt;td&gt;-29,241.130&lt;/td&gt;&lt;td&gt;-29,253.210&lt;/td&gt;&lt;td&gt;-29,858.430&lt;/td&gt;&lt;td&gt;-29,572.120&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by htype (SF)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; htype2 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; SF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.194 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.744 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.303 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.296 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; SF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.123 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.790 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.205 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.349 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; SF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.115 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.270 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.190 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.268 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; SF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.095 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.739 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.156 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.947 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; SF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.223 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.965 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.362 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.518 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; SF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.171 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11.185 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.267 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.401 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by htype (MF)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.005&lt;/td&gt;&lt;td&gt;0.084&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.138&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.084&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.007&lt;/td&gt;&lt;td&gt;0.058&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.298&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.235&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.177&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.208&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.351&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.279&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.008&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.011&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.009&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.010&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.012&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.010&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.0005&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.868&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.815&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.873&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.853&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.751&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.813&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.546&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.451&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.456&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.464&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.490&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.467&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;1.004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.824&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.776&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.817&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.972&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.901&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;1.113&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.958&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.993&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.947&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.056&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.046&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.266&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.234&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.216&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.179&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.320&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.279&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;9,048&lt;/td&gt;&lt;td&gt;8,949&lt;/td&gt;&lt;td&gt;8,913&lt;/td&gt;&lt;td&gt;8,823&lt;/td&gt;&lt;td&gt;9,048&lt;/td&gt;&lt;td&gt;8,976&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-5,249.138&lt;/td&gt;&lt;td&gt;-5,040.319&lt;/td&gt;&lt;td&gt;-4,983.124&lt;/td&gt;&lt;td&gt;-4,970.965&lt;/td&gt;&lt;td&gt;-5,140.748&lt;/td&gt;&lt;td&gt;-5,131.395&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by htype (MF)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; htype2 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.531 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.799 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.782 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.069 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.198 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.627 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.251 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.871 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.292 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.961 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.361 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.897 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.234 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.990 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.289 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.927 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.267 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.355 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.365 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.672 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.297 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.713 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.392 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.208 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+
+---
+
+# Coefficients by Age Group (&lt;25)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.059&lt;/td&gt;&lt;td&gt;0.176&lt;/td&gt;&lt;td&gt;0.229&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.091&lt;/td&gt;&lt;td&gt;0.014&lt;/td&gt;&lt;td&gt;0.117&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.002&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.674&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.873&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.737&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.786&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.721&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.500&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.022&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.039&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.030&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.038&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.027&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.026&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0003&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.481&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.081&lt;/td&gt;&lt;td&gt;0.152&lt;/td&gt;&lt;td&gt;-0.211&lt;/td&gt;&lt;td&gt;0.629&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.257&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.415&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.259&lt;/td&gt;&lt;td&gt;0.099&lt;/td&gt;&lt;td&gt;0.128&lt;/td&gt;&lt;td&gt;0.468&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.314&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.421&lt;/td&gt;&lt;td&gt;1.224&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.120&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.140&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.855&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.278&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.453&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.000&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;1.144&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.365&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;-0.023&lt;/td&gt;&lt;td&gt;0.217&lt;/td&gt;&lt;td&gt;0.178&lt;/td&gt;&lt;td&gt;0.231&lt;/td&gt;&lt;td&gt;0.252&lt;/td&gt;&lt;td&gt;-0.021&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;866&lt;/td&gt;&lt;td&gt;776&lt;/td&gt;&lt;td&gt;794&lt;/td&gt;&lt;td&gt;713&lt;/td&gt;&lt;td&gt;866&lt;/td&gt;&lt;td&gt;866&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-522.172&lt;/td&gt;&lt;td&gt;-415.789&lt;/td&gt;&lt;td&gt;-439.402&lt;/td&gt;&lt;td&gt;-387.272&lt;/td&gt;&lt;td&gt;-459.070&lt;/td&gt;&lt;td&gt;-520.190&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by Age Group (&lt;25)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; age_group3 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.474 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.874 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.798 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23.347 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.562 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.734 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.925 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.568 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.336 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.714 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.498 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.867 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.720 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.526 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.954 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24.533 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.132 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10.467 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.176 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.956 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt;25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.726 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.891 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.158 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26.936 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by Age Group (25-64)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;0.110&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.088&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.110&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.093&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.098&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.108&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.035&lt;/td&gt;&lt;td&gt;-0.193&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.228&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.188&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.163&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.131&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.018&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.021&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.021&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.021&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.021&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.985&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.794&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.783&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.805&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.870&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.863&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.660&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.624&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.612&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.612&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.639&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.626&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.351&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.357&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.361&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.351&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.450&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.435&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.583&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.536&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.558&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.552&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.611&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.613&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.086&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.132&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.161&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.125&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.099&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.098&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;46,804&lt;/td&gt;&lt;td&gt;46,332&lt;/td&gt;&lt;td&gt;46,332&lt;/td&gt;&lt;td&gt;46,215&lt;/td&gt;&lt;td&gt;46,804&lt;/td&gt;&lt;td&gt;46,359&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-28,088.170&lt;/td&gt;&lt;td&gt;-27,673.520&lt;/td&gt;&lt;td&gt;-27,629.230&lt;/td&gt;&lt;td&gt;-27,623.960&lt;/td&gt;&lt;td&gt;-27,826.010&lt;/td&gt;&lt;td&gt;-27,740.920&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by Age Group (25-64)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; age_group3 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25-64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.252 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.274 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.428 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.344 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25-64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.407 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.537 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.716 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27.318 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25-64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.425 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.136 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.767 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.100 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25-64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.386 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.253 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.673 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26.633 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25-64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.393 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.408 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.675 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.174 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25-64 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.383 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.331 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.660 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29.872 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Coefficients by Age Group (65+)
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;wgt.none&lt;/td&gt;&lt;td&gt;wgt.b&lt;/td&gt;&lt;td&gt;wgt.d&lt;/td&gt;&lt;td&gt;wgt.e&lt;/td&gt;&lt;td&gt;wgt.sc&lt;/td&gt;&lt;td&gt;wgt.rbc&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;td&gt;(6)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;1:(intercept)&lt;/td&gt;&lt;td&gt;-0.0003&lt;/td&gt;&lt;td&gt;0.054&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.096&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.070&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.011&lt;/td&gt;&lt;td&gt;0.009&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;own&lt;/td&gt;&lt;td&gt;-0.229&lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.790&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.685&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.757&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.542&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.558&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;commute_time&lt;/td&gt;&lt;td&gt;-0.014&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.020&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.019&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.016&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.017&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;size&lt;/td&gt;&lt;td&gt;0.0003&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0004&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfd&lt;/td&gt;&lt;td&gt;0.487&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.129&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.117&lt;/td&gt;&lt;td&gt;0.140&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.276&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.268&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;sfa&lt;/td&gt;&lt;td&gt;0.396&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.248&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.231&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.236&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.322&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.326&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N1&lt;/td&gt;&lt;td&gt;0.411&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.078&lt;/td&gt;&lt;td&gt;-0.008&lt;/td&gt;&lt;td&gt;-0.007&lt;/td&gt;&lt;td&gt;0.322&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.359&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N2&lt;/td&gt;&lt;td&gt;0.550&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.418&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.396&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.380&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.522&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.544&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;N3&lt;/td&gt;&lt;td&gt;0.266&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.264&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.193&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.265&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.239&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.249&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;price:own&lt;/td&gt;&lt;td&gt;0.0005&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.001&lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;11,056&lt;/td&gt;&lt;td&gt;10,763&lt;/td&gt;&lt;td&gt;10,700&lt;/td&gt;&lt;td&gt;10,763&lt;/td&gt;&lt;td&gt;11,056&lt;/td&gt;&lt;td&gt;10,763&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Log Likelihood&lt;/td&gt;&lt;td&gt;-7,123.315&lt;/td&gt;&lt;td&gt;-6,745.052&lt;/td&gt;&lt;td&gt;-6,678.836&lt;/td&gt;&lt;td&gt;-6,700.210&lt;/td&gt;&lt;td&gt;-7,085.336&lt;/td&gt;&lt;td&gt;-6,911.574&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="7" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="6" style="text-align:right"&gt;&lt;sup&gt;*&lt;/sup&gt;p&lt;0.1; &lt;sup&gt;**&lt;/sup&gt;p&lt;0.05; &lt;sup&gt;***&lt;/sup&gt;p&lt;0.01&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+---
+
+# WTP by Age Group (65+)
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; age_group3 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; wgtstr &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; renting $/commute_time &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/sqft &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; owning $/commute_time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 65+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.none &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.285 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.636 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.613 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33.582 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 65+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.596 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.389 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.866 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 54.430 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 65+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.528 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.788 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.335 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37.418 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 65+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.545 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.504 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.495 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42.554 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 65+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.sc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.422 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.084 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36.435 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 65+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wgt.rbc &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.463 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16.702 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.232 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 44.470 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+&lt;!-- ```{r, include=F} --&gt;
+&lt;!-- ## Mixed logit model --&gt;
+&lt;!-- # ml.data &lt;- mlogit.data(m.data, shape = "long", choice = "choice", --&gt;
+&lt;!-- #                   id.var = "person", alt.var = "alt.id") --&gt;
+&lt;!-- #  --&gt;
+&lt;!-- # mlogit(choice ~ price * own + commute_time + size + sfd +  --&gt;
+&lt;!-- #                 sfa + N1 + N2 + N3|1, data=ml.data,  --&gt;
+&lt;!-- #        panel = TRUE,  --&gt;
+&lt;!-- #        rpar = c(price = "n", own = "n"), --&gt;
+&lt;!-- #        R = 10, halton = NA) --&gt;
+
+&lt;!-- mlc_wgt &lt;- m.data %&gt;%  --&gt;
+&lt;!--   mutate(.id=1) %&gt;%  --&gt;
+&lt;!--   nest(-.id) %&gt;%  --&gt;
+&lt;!--   left_join(wgts) %&gt;%  --&gt;
+&lt;!--   mutate(data=map(data, mlogit.data, shape = "long", choice = "choice", --&gt;
+&lt;!--                   id.var = "person", alt.var = "alt.id"), --&gt;
+&lt;!--          weights=map2(data, wgtstr, function(x, y) x[, y, drop=T])) --&gt;
+
+&lt;!-- ml_wgt &lt;- mlc_wgt %&gt;%  --&gt;
+&lt;!--   mutate( --&gt;
+&lt;!--     model=map2(data, weights, ~mlogit(choice ~ price * own + commute_time + size + sfd +  --&gt;
+&lt;!--                                                sfa + N1 + N2 + N3|1,  --&gt;
+&lt;!--                                       data=.x, weights=.y, --&gt;
+&lt;!--                                       panel = TRUE,  --&gt;
+&lt;!--                                       rpar = c(price="n", own="n", commute_time="n", --&gt;
+&lt;!--                                                size="n", sfd="n", sfa="n", N1="n", N2="n", --&gt;
+&lt;!--                                                N3="n"), --&gt;
+&lt;!--                                       R = 100, halton = NA)), --&gt;
+&lt;!--     ll=map_dbl(model, logLik) --&gt;
+&lt;!--     ) --&gt;
+
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- # Mixed Logit Coefficients (controling for same surveyee) --&gt;
+
+&lt;!-- ```{r, results="asis"} --&gt;
+&lt;!-- tight_stargazer(ml_wgt$model, type="html", column.labels=ml_wgt$wgtstr, model.numbers=T) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- # Mixed Logit WTP (controling for same surveyee) --&gt;
+
+&lt;!-- ```{r, results="asis"} --&gt;
+&lt;!-- ml_wtp &lt;- ml_wgt %&gt;% mutate(renting=map2(model, wgtstr, ~getWTP(.x, model_label=.y)), --&gt;
+&lt;!--                             owning=map2(model, wgtstr, ~getWTP(.x, model_label=.y, add_term="price:own"))) --&gt;
+
+&lt;!-- wtp_pp &lt;- ml_wtp %&gt;% unnest(renting, owning, .drop=T, .sep=" $/") %&gt;%  --&gt;
+&lt;!--   select(-c(.id, ll, `renting $/model`, `owning $/model`)) --&gt;
+&lt;!-- knitr::kable(wtp_pp, "html", digits=3) --&gt;
+&lt;!-- ``` --&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github"
+});
+if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

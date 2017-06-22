@@ -1,0 +1,1170 @@
+---
+title: "Phase II Task1"
+author: "Liming Wang"
+date: "8/30/2016"
+#output: pdf_document
+#classoption: landscape
+output: 
+  revealjs::revealjs_presentation:
+    theme: night
+    highlight: pygments
+    center: true
+    self_contained: false
+    reveal_options:
+      slideNumber: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+if (!require("pacman")) {install.packages("pacman"); library(pacman)}
+if (!require("printr")) install.packages('printr', type = 'source', repos = 'http://yihui.name/xran')
+p_load(revealjs, printr, pander, dplyr, magrittr, tidyr)
+knitr::opts_knit$set(root.dir = "../")
+panderOptions('round', 2)
+panderOptions('keep.trailing.zeros', TRUE)
+```
+
+```{r source, echo=FALSE, warning=FALSE, message=FALSE, cache=T}
+source('code/load_data.R')
+source('code/functions.R')
+```
+
+## Outline
+
+- Initial assessment of sampling bias
+- Weighting Scheme
+    - Weight Factors: County * Housing Type * Tenure * Age Group
+    - Weight Factors: County * Housing Type * Tenure * Age Group * Income Group
+- Weights 
+    - vs 2014 1-year ACS PUMS
+    - vs 2013 1-year ACS PUMS
+- Next steps
+
+# Initial Assessment of Sampling Bias
+
+## % Households by County (Source vs ACS)
+
+```{r, echo=F, message=FALSE, results='asis'}
+output <- sp.pp %>% group_by(sourcechr) %>%
+  mutate(mrgnn=n()) %>%
+  group_by(sourcechr, countychr) %>% 
+  summarize(mrgn_pct=100*n()/first(mrgnn)) %>%
+  spread(sourcechr, mrgn_pct) %>%
+  left_join(
+    acs13.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(countychr) %>%
+      summarize(`% (2013 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="countychr") %>%
+  left_join(
+    acs14.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(countychr) %>%
+      summarize(`% (2014 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="countychr") %>%
+  left_join(
+    acs14.5 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(countychr) %>%
+      summarize(`% (2014 ACS5)`=100*sum(hhwt)/first(sumwt)),
+    by="countychr") %>%
+  rename(County=countychr)
+knitr::kable(output, digits=2)
+```
+
+## Tests of  % Households by County (Source vs ACS)
+
+<div style="float: left; width: 40%;">
+```{r, echo=F, message=FALSE, results='asis'}
+cat.pander(chisq.test(output$`Opt-in`/100 * nrow(sp.pp), 
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Opt-in vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Panel`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Panel vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Recruited`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Recruited vs 2013 ACS1)")
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r, echo=F, message=FALSE, results='asis'}
+#t-tests, results may not be correct
+cat.pander(t.test(output$`Opt-in`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Opt-in vs 2013 ACS1)")
+cat.pander(t.test(output$`Panel`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Panel vs 2013 ACS1)")
+cat.pander(t.test(output$`Recruited`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Recruited vs 2013 ACS1)")
+```
+</div>
+
+## % Households by Age Group (Source vs ACS)
+
+```{r, echo=F, message=FALSE}
+output <- sp.pp %>% group_by(sourcechr) %>%
+  mutate(mrgnn=n()) %>%
+  group_by(sourcechr, age_group5) %>% 
+  summarize(mrgn_pct=100*n()/first(mrgnn)) %>%
+  spread(sourcechr, mrgn_pct) %>%
+  left_join(
+    acs13.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(age_group5) %>%
+      summarize(`% (2013 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="age_group5") %>%
+  left_join(
+    acs14.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(age_group5) %>%
+      summarize(`% (2014 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="age_group5") %>%
+  left_join(
+    acs14.5 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(age_group5) %>%
+      summarize(`% (2014 ACS5)`=100*sum(hhwt)/first(sumwt)),
+    by="age_group5") %>%
+  rename(`Age Group`=age_group5)
+knitr::kable(output, digits=2)
+```
+
+## Tests of  % Households by Age Group (Source vs ACS)
+
+<div style="float: left; width: 40%;">
+```{r, echo=F, message=FALSE, results='asis'}
+cat.pander(chisq.test(output$`Opt-in`/100 * nrow(sp.pp), 
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Opt-in vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Panel`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Panel vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Recruited`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Recruited vs 2013 ACS1)")
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r, echo=F, message=FALSE, results='asis'}
+#t-tests, results may not be correct
+cat.pander(t.test(output$`Opt-in`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Opt-in vs 2013 ACS1)")
+cat.pander(t.test(output$`Panel`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Panel vs 2013 ACS1)")
+cat.pander(t.test(output$`Recruited`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Recruited vs 2013 ACS1)")
+```
+</div>
+
+
+## % Households by Income Group (Source vs ACS)
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+output <- sp.pp %>% group_by(sourcechr) %>%
+  mutate(mrgnn=n()) %>%
+  group_by(sourcechr, hhinc6) %>% 
+  summarize(mrgn_pct=100*n()/first(mrgnn)) %>%
+  spread(sourcechr, mrgn_pct) %>%
+  slice(match(inccat6, hhinc6)) %>%
+  left_join(
+    acs13.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(hhinc6) %>%
+      summarize(`% (2013 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="hhinc6") %>%
+  left_join(
+    acs14.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(hhinc6) %>%
+      summarize(`% (2014 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="hhinc6") %>%
+  left_join(
+    acs14.5 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(hhinc6) %>%
+      summarize(`% (2014 ACS5)`=100*sum(hhwt)/first(sumwt)),
+    by="hhinc6") %>%
+  rename(`Income Group`=hhinc6)
+knitr::kable(output, digits=2)
+```
+
+## Tests of  % Households by Income Group (Source vs ACS)
+
+<div style="float: left; width: 40%;">
+```{r, echo=F, message=FALSE, results='asis'}
+cat.pander(chisq.test(output$`Opt-in`/100 * nrow(sp.pp), 
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Opt-in vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Panel`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Panel vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Recruited`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Recruited vs 2013 ACS1)")
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r, echo=F, message=FALSE, results='asis'}
+#t-tests, results may not be correct
+cat.pander(t.test(output$`Opt-in`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Opt-in vs 2013 ACS1)")
+cat.pander(t.test(output$`Panel`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Panel vs 2013 ACS1)")
+cat.pander(t.test(output$`Recruited`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Recruited vs 2013 ACS1)")
+```
+</div>
+
+## % Households by Housing Type and Tenure (Source vs ACS)
+
+```{r, echo=F, message=FALSE}
+output <- sp.pp %>% group_by(sourcechr) %>%
+  mutate(mrgnn=n()) %>%
+  group_by(sourcechr, htype2, tenurechr) %>% 
+  summarize(mrgn_pct=100*n()/first(mrgnn)) %>%
+  spread(sourcechr, mrgn_pct) %>%
+  left_join(
+    acs13.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(htype2, tenurechr) %>%
+      summarize(`% (2013 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by=c("htype2", "tenurechr"))  %>%
+  left_join(
+    acs14.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(htype2, tenurechr) %>%
+      summarize(`% (2014 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by=c("htype2", "tenurechr"))  %>%
+  left_join(
+    acs14.5 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(htype2, tenurechr) %>%
+      summarize(`% (2014 ACS5)`=100*sum(hhwt)/first(sumwt)),
+    by=c("htype2", "tenurechr")) %>%
+  rename(`Housing Type`=htype2, tenure=tenurechr)
+knitr::kable(output, digits=2)
+```
+
+## % Households by Household Size (Source vs ACS)
+
+```{r, echo=F, message=FALSE}
+output <- sp.pp %>% group_by(sourcechr) %>%
+  mutate(mrgnn=n()) %>%
+  group_by(hhsize, add=T) %>% 
+  summarize(mrgn_pct=100*n()/first(mrgnn)) %>%
+  spread(sourcechr, mrgn_pct) %>%
+  left_join(
+    acs13.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(hhsize) %>%
+      summarize(`% (2013 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="hhsize") %>%
+  left_join(
+    acs14.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(hhsize) %>%
+      summarize(`% (2014 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="hhsize") %>%
+  left_join(
+    acs14.5 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(hhsize) %>%
+      summarize(`% (2014 ACS5)`=100*sum(hhwt)/first(sumwt)),
+    by="hhsize") %>%
+  rename(`Household Size`=hhsize)
+knitr::kable(output, digits=2)
+```
+
+## Tests of  % Households by Household Size (Source vs ACS)
+
+<div style="float: left; width: 40%;">
+```{r, echo=F, message=FALSE, results='asis'}
+cat.pander(chisq.test(output$`Opt-in`/100 * nrow(sp.pp), 
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Opt-in vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Panel`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Panel vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Recruited`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Recruited vs 2013 ACS1)")
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r, echo=F, message=FALSE, results='asis'}
+#t-tests, results may not be correct
+cat.pander(t.test(output$`Opt-in`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Opt-in vs 2013 ACS1)")
+cat.pander(t.test(output$`Panel`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Panel vs 2013 ACS1)")
+cat.pander(t.test(output$`Recruited`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Recruited vs 2013 ACS1)")
+```
+</div>
+
+## % Households by Number of Children (Source vs ACS)
+
+```{r, echo=F, message=FALSE}
+output <- sp.pp %>% group_by(sourcechr) %>%
+  mutate(mrgnn=n()) %>%
+  group_by(npers_lt18, add=T) %>% 
+  summarize(mrgn_pct=100*n()/first(mrgnn)) %>%
+  spread(sourcechr, mrgn_pct) %>%
+  left_join(
+    acs13.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(npers_lt18) %>%
+      summarize(`% (2013 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="npers_lt18") %>%
+  left_join(
+    acs14.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(npers_lt18) %>%
+      summarize(`% (2014 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="npers_lt18") %>%
+  left_join(
+    acs14.5 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(npers_lt18) %>%
+      summarize(`% (2014 ACS5)`=100*sum(hhwt)/first(sumwt)),
+    by="npers_lt18") %>%
+  rename(`#children`=npers_lt18)
+knitr::kable(output, digits=2)
+```
+
+## Tests of  % Households by Number of Children (Source vs ACS)
+
+<div style="float: left; width: 40%;">
+```{r, echo=F, message=FALSE, results='asis'}
+cat.pander(chisq.test(output$`Opt-in`/100 * nrow(sp.pp), 
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Opt-in vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Panel`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Panel vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Recruited`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Recruited vs 2013 ACS1)")
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r, echo=F, message=FALSE, results='asis'}
+#t-tests, results may not be correct
+cat.pander(t.test(output$`Opt-in`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Opt-in vs 2013 ACS1)")
+cat.pander(t.test(output$`Panel`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Panel vs 2013 ACS1)")
+cat.pander(t.test(output$`Recruited`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Recruited vs 2013 ACS1)")
+```
+</div>
+
+## % Households by Gender of Householder (Source vs ACS)
+
+```{r, echo=F, message=FALSE}
+output <- sp.pp %>% group_by(sourcechr) %>%
+  mutate(mrgnn=n()) %>%
+  group_by(sex, add=T) %>% 
+  summarize(mrgn_pct=100*n()/first(mrgnn)) %>%
+  spread(sourcechr, mrgn_pct) %>%
+  left_join(
+    acs13.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(sex) %>%
+      summarize(`% (2013 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="sex") %>%
+  left_join(
+    acs14.1 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(sex) %>%
+      summarize(`% (2014 ACS1)`=100*sum(hhwt)/first(sumwt)),
+    by="sex") %>%
+  left_join(
+    acs14.5 %>% mutate(hhwt=hhwt/100, sumwt=sum(hhwt)) %>%
+      group_by(sex) %>%
+      summarize(`% (2014 ACS5)`=100*sum(hhwt)/first(sumwt)),
+    by="sex") %>%
+  rename(`Gender of Householder`=sex)
+knitr::kable(output, digits=2, caption = "1=Male, 2=Female")
+```
+
+## Tests of  % Households by Gender of Householder (Source vs ACS)
+
+<div style="float: left; width: 40%;">
+```{r, echo=F, message=FALSE, results='asis'}
+output %<>% filter(!is.na(`Gender of Householder`))
+cat.pander(chisq.test(output$`Opt-in`/100 * nrow(sp.pp), 
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Opt-in vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Panel`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Panel vs 2013 ACS1)")
+cat.pander(chisq.test(output$`Recruited`/100 * nrow(sp.pp),
+               p = output$`% (2013 ACS1)`/100, rescale.p=T), 
+               caption="chi-square test of household frequency (Recruited vs 2013 ACS1)")
+```
+</div>
+
+<div style="float: right; width: 60%;">
+```{r, echo=F, message=FALSE, results='asis'}
+#t-tests, results may not be correct
+cat.pander(t.test(output$`Opt-in`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Opt-in vs 2013 ACS1)")
+cat.pander(t.test(output$`Panel`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Panel vs 2013 ACS1)")
+cat.pander(t.test(output$`Recruited`/100, output$`% (2013 ACS1)`/100, paired = T), 
+               caption="t-test of difference in joint distribution (Recruited vs 2013 ACS1)")
+```
+</div>
+
+## Initial Assessment
+
+- Opt-in and Recruited samples, especially the Recruited sample, over-represent Multinomah and Washington residents
+- The overall sample, in particular, the Opt-in and Recruited samples, under-represent low-income households
+- Opt-in and Recruited samples under-represent young households
+- Opt-in and Recruited samples under-represent MF renters
+- As expected, Panel sample matches ACS distribution better
+
+# Weighting Scheme
+
+
+## Weighting Scheme
+
+- ACS-1 vs ACS-5
+
+
+## SP original (SF)
+
+- County * Housing Type * Tenure * Age Group
+
+```{r, echo=F, message=FALSE}
+output <- sp.pp %>% group_by(countychr, htype2, tenurechr, age_group5) %>% 
+  summarize(n=n()) %>%
+  spread(countychr, n) %>%
+  rename(`Housing Type`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+
+knitr::kable(output %>% filter(`Housing Type`=="SF"), digits=2, caption="SF Households")
+
+```
+
+## 2013 ACS-1 (SF)
+
+- County * Housing Type * Tenure * Age Group
+
+```{r, echo=F, message=FALSE}
+
+output <- acs13.1 %>%
+      group_by(countychr, htype2, tenurechr, age_group5) %>%
+      summarize(n=n()) %>%
+      spread(countychr, n) %>%
+      rename(`Housing Type`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`Housing Type`=="SF"), digits=2, caption="SF Households")
+```
+
+## 2014 ACS-1 (SF)
+
+- County * Housing Type * Tenure * Age Group
+
+```{r, echo=F, message=FALSE}
+
+output <- acs14.1 %>%
+      group_by(countychr, htype2, tenurechr, age_group5) %>%
+      summarize(n=n()) %>%
+      spread(countychr, n) %>%
+      rename(`Housing Type`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`Housing Type`=="SF"), digits=2, caption="SF Households")
+```
+
+## 2014 ACS-5 (SF)
+
+- County * Housing Type * Tenure * Age Group
+
+```{r, echo=F, message=FALSE}
+
+output <- acs14.5 %>%
+      group_by(countychr, htype2, tenurechr, age_group5) %>%
+      summarize(n=n()) %>%
+      spread(countychr, n) %>%
+      rename(`Housing Type`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`Housing Type`=="SF"), digits=2, caption="SF Households")
+```
+
+## SP original (MF)
+
+- County * Housing Type * Tenure * Age Group
+
+```{r, echo=F, message=FALSE}
+output <- sp.pp %>% group_by(countychr, htype2, tenurechr, age_group5) %>% 
+  summarize(n=n()) %>%
+  spread(countychr, n) %>%
+  rename(`Housing Type`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+
+knitr::kable(output %>% filter(`Housing Type`=="MF"), digits=2, caption="MF Households")
+
+```
+
+## 2013 ACS-1 (MF)
+
+- County * Housing Type * Tenure * Age Group
+
+```{r, echo=F, message=FALSE}
+
+output <- acs13.1 %>%
+      group_by(countychr, htype2, tenurechr, age_group5) %>%
+      summarize(n=n()) %>%
+      spread(countychr, n) %>%
+      rename(`Housing Type`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`Housing Type`=="MF"), digits=2, caption="MF Households")
+```
+
+## 2014 ACS-1 (MF)
+
+- County * Housing Type * Tenure * Age Group
+
+```{r, echo=F, message=FALSE}
+
+output <- acs14.1 %>%
+      group_by(countychr, htype2, tenurechr, age_group5) %>%
+      summarize(n=n()) %>%
+      spread(countychr, n) %>%
+      rename(`Housing Type`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`Housing Type`=="MF"), digits=2, caption="MF Households")
+```
+
+## 2014 ACS-5 (MF)
+
+- County * Housing Type * Tenure * Age Group
+
+```{r, echo=F, message=FALSE}
+
+output <- acs14.5 %>%
+      group_by(countychr, htype2, tenurechr, age_group5) %>%
+      summarize(n=n()) %>%
+      spread(countychr, n) %>%
+      rename(`Housing Type`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`Housing Type`=="MF"), digits=2, caption="MF Households")
+```
+
+# Weights
+
+## Weights
+
+- 2013 ACS-1
+- 2014 ACS-1
+- 2014 ACS-5
+
+## Assumptions
+
+- Assumption: the person responsed to the SP survey is the householder (ACS defintion)
+- Assumption: Household income in the SP survey is comparable to ACS total household income
+
+
+## Weights against 2013 ACS-1 (SF)
+
+```{r, echo=F, message=FALSE}
+wgt_vars <- c("countychr", "htype2", "tenurechr", "age_group5")
+wgt.df13.1 <- compute_weights(sp.pp, acs13.1, wgt_vars)
+output <- wgt.df13.1 %>%
+  select(-expwgt) %>%
+  spread(countychr, wgt) %>%
+  rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`HType`=="SF"), digits=3)
+```
+
+## Weights against 2013 ACS-1 (MF)
+
+```{r, echo=F, message=FALSE}
+knitr::kable(output %>% filter(`HType`=="MF"), digits=3)
+```
+
+## Weights against 2014 ACS-1 (SF)
+
+```{r, echo=F, message=FALSE}
+wgt_vars <- c("countychr", "htype2", "tenurechr", "age_group5")
+wgt.df14.1 <- compute_weights(sp.pp, acs14.1, wgt_vars) 
+output <- wgt.df14.1 %>%
+  select(-expwgt) %>%
+  spread(countychr, wgt) %>%
+  rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`HType`=="SF"), digits=3)
+```
+
+## Weights against 2014 ACS-1 (MF)
+
+```{r, echo=F, message=FALSE}
+knitr::kable(output %>% filter(`HType`=="MF"), digits=3)
+```
+
+## Weights against 2014 ACS-5 (SF)
+
+```{r, echo=F, message=FALSE}
+wgt_vars <- c("countychr", "htype2", "tenurechr", "age_group5")
+wgt.df14.5 <- compute_weights(sp.pp, acs14.5, wgt_vars) 
+output <- wgt.df14.5 %>%
+  select(-expwgt) %>%
+  spread(countychr, wgt) %>%
+  rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`HType`=="SF"), digits=3)
+```
+
+## Weights against 2014 ACS-5 (MF)
+
+```{r, echo=F, message=FALSE}
+knitr::kable(output %>% filter(`HType`=="MF"), digits=3)
+```
+
+
+<!-- ## Verify Joint Distribution vs 2014 ACS-1 (1) -->
+
+<!-- - % Households by County, Housing Type, Tenure, Age Group -->
+<!-- ```{r, echo=F, message=FALSE} -->
+<!-- output <- sp.pp %>% mutate(sumwgt=sum(wgt), sumexpwgt=sum(expwgt)) %>%  -->
+<!--   group_by(countychr, htype2, tenurechr, age_group5) %>% -->
+<!--   summarize(pct=100*sum(wgt)/first(sumwgt)) %>% -->
+<!--   spread(countychr, pct) %>% -->
+<!--   left_join( -->
+<!--     acs14.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>%  -->
+<!--       group_by(countychr, htype2, tenurechr, age_group5) %>%  -->
+<!--       summarize(ACS_pct=100*sum(hhwt/100)/first(sumhhwt)) %>% -->
+<!--       spread(countychr, ACS_pct), -->
+<!--     by=c("htype2", "tenurechr", "age_group5"), suffix=c(" (SP)", " (ACS1)")) %>% -->
+<!--   rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5) -->
+<!-- knitr::kable(output %>% filter(`HType`=="SF"), digits=2) -->
+<!-- ``` -->
+
+<!-- ## Verify Joint Distribution  vs 2014 ACS-1 (2) -->
+<!-- - % Households by County, Housing Type, Tenure, Age Group (joint distribution) -->
+<!-- ```{r, echo=F, message=FALSE} -->
+<!-- knitr::kable(output %>% filter(`HType`=="MF"), digits=2) -->
+<!-- ``` -->
+
+## Joint Distribution SP wgted against 2013 ACS1 (SF)
+
+- % Households by County, Housing Type, Tenure, Age Group (joint distribution)
+```{r, echo=F, message=FALSE}
+sp.wgt <- sp.pp %>% left_join(wgt.df13.1)
+output <- sp.wgt %>% mutate(sumwgt=sum(wgt), sumexpwgt=sum(expwgt)) %>% 
+  group_by(countychr, htype2, tenurechr, age_group5) %>%
+  summarize(pct=100*sum(wgt)/first(sumwgt)) %>%
+  spread(countychr, pct) %>%
+  # left_join(
+  #   ,
+  #   by=c("htype2", "tenurechr", "age_group5"), suffix=c(" (SP)", " (ACS5)")) %>%
+  rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+#knitr::kable(output, digits=2, caption="% Households by County, Housing Type, Tenure, Age Group")
+knitr::kable(output %>% filter(`HType`=="SF"), digits=2, caption="SF (SP weighted)")
+#knitr::kable(output %>% filter(`HType`=="MF"), digits=2, caption="MF")
+```
+
+## Joint Distribution 2013 ACS-1 (SF)
+- % Households by County, Housing Type, Tenure, Age Group (joint distribution)
+```{r, echo=F, message=FALSE}
+output <- acs13.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(countychr, htype2, tenurechr, age_group5) %>% 
+      summarize(ACS_pct=100*sum(hhwt/100)/first(sumhhwt)) %>%
+      spread(countychr, ACS_pct) %>%
+      rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`HType`=="SF"), digits=2, caption="SF (ACS1)")
+```
+
+## Joint Distribution 2014 ACS-1 (SF)
+- % Households by County, Housing Type, Tenure, Age Group (joint distribution)
+```{r, echo=F, message=FALSE}
+output <- acs14.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(countychr, htype2, tenurechr, age_group5) %>% 
+      summarize(ACS_pct=100*sum(hhwt/100)/first(sumhhwt)) %>%
+      spread(countychr, ACS_pct) %>%
+      rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+knitr::kable(output %>% filter(`HType`=="SF"), digits=2, caption="SF (ACS1)")
+```
+
+## Joint Distribution 2014 ACS-5 (SF)
+- % Households by County, Housing Type, Tenure, Age Group (joint distribution)
+```{r, echo=F, message=FALSE}
+output <- acs14.5 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(countychr, htype2, tenurechr, age_group5) %>% 
+      summarize(ACS_pct=100*sum(hhwt/100)/first(sumhhwt)) %>%
+      spread(countychr, ACS_pct) %>%
+      rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)  
+knitr::kable(output %>% filter(`HType`=="SF"), digits=2, caption="SF (ACS5)")
+```
+
+## Joint Distribution SP wgted against 2013 ACS1  (MF)
+
+- % Households by County, Housing Type, Tenure, Age Group (joint distribution)
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% mutate(sumwgt=sum(wgt), sumexpwgt=sum(expwgt)) %>% 
+  group_by(countychr, htype2, tenurechr, age_group5) %>%
+  summarize(pct=100*sum(wgt)/first(sumwgt)) %>%
+  spread(countychr, pct) %>%
+  # left_join(
+  #   ,
+  #   by=c("htype2", "tenurechr", "age_group5"), suffix=c(" (SP)", " (ACS5)")) %>%
+  rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)
+#knitr::kable(output, digits=2, caption="% Households by County, Housing Type, Tenure, Age Group")
+#knitr::kable(output %>% filter(`HType`=="SF"), digits=2, caption="SF (SP weighted)")
+knitr::kable(output %>% filter(`HType`=="MF"), digits=2, caption="MF (SP weighted)")
+```
+
+## Joint Distribution 2013 ACS-1 (MF)
+- % Households by County, Housing Type, Tenure, Age Group (joint distribution)
+```{r, echo=F, message=FALSE}
+output <- acs13.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(countychr, htype2, tenurechr, age_group5) %>% 
+      summarize(ACS_pct=100*sum(hhwt/100)/first(sumhhwt)) %>%
+      spread(countychr, ACS_pct) %>%
+      rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)  
+knitr::kable(output %>% filter(`HType`=="MF"), digits=2, caption="MF (ACS1)")
+```
+
+## Joint Distribution 2014 ACS-1 (MF)
+- % Households by County, Housing Type, Tenure, Age Group (joint distribution)
+```{r, echo=F, message=FALSE}
+output <- acs14.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(countychr, htype2, tenurechr, age_group5) %>% 
+      summarize(ACS_pct=100*sum(hhwt/100)/first(sumhhwt)) %>%
+      spread(countychr, ACS_pct) %>%
+      rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)  
+knitr::kable(output %>% filter(`HType`=="MF"), digits=2, caption="MF (ACS1)")
+```
+
+## Joint Distribution 2014 ACS-5 (MF)
+- % Households by County, Housing Type, Tenure, Age Group (joint distribution)
+```{r, echo=F, message=FALSE}
+output <- acs14.5 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(countychr, htype2, tenurechr, age_group5) %>% 
+      summarize(ACS_pct=100*sum(hhwt/100)/first(sumhhwt)) %>%
+      spread(countychr, ACS_pct) %>%
+      rename(`HType`=htype2, Tenure=tenurechr, `Age Group`=age_group5)  
+knitr::kable(output %>% filter(`HType`=="MF"), digits=2, caption="MF (ACS5)")
+```
+
+## Marginal Distributions (1)
+
+- % Households by County
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% mutate(sumwgt=sum(wgt), sumexpwgt=sum(expwgt)) %>% 
+  group_by(countychr) %>%
+  summarize(`% (SP)`=100*sum(wgt)/first(sumwgt)) %>%
+  left_join(
+    acs13.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(countychr) %>% 
+      summarize(`% (2013 ACS1)`=100*sum(hhwt/100)/first(sumhhwt)) 
+    )  %>%
+  left_join(
+    acs14.5 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(countychr) %>% 
+      summarize(`% (2014 ACS5)`=100*sum(hhwt/100)/first(sumhhwt)) 
+    )  %>%
+  rename(County=countychr)
+knitr::kable(output, digits=2)
+```
+
+## Marginal Distributions (2)
+
+- % Households by Housing Type (2 Categories)
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% mutate(sumwgt=sum(wgt), sumexpwgt=sum(expwgt)) %>% 
+  group_by(htype2) %>%
+  summarize(`% (SP)`=100*sum(wgt)/first(sumwgt)) %>%
+  left_join(
+    acs13.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(htype2) %>% 
+      summarize(`% (2013 ACS1)`=100*sum(hhwt/100)/first(sumhhwt)) 
+    )  %>%
+  left_join(
+    acs14.5 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(htype2) %>% 
+      summarize(`% (2014 ACS5)`=100*sum(hhwt/100)/first(sumhhwt)) 
+    )  %>%
+  rename(`Housing Type`=htype2)
+knitr::kable(output, digits=2)
+```
+
+## Marginal Distributions (3)
+
+- % Households by Housing Type (3 Categories)
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% mutate(sumwgt=sum(wgt), sumexpwgt=sum(expwgt)) %>% 
+  group_by(htype3) %>%
+  summarize(`% (SP)`=100*sum(wgt)/first(sumwgt)) %>%
+  left_join(
+    acs13.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(htype3) %>% 
+      summarize(`% (2013 ACS1)`=100*sum(hhwt/100)/first(sumhhwt)) 
+    )  %>%
+  left_join(
+    acs14.5 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(htype3) %>% 
+      summarize(`% (2014 ACS5)`=100*sum(hhwt/100)/first(sumhhwt)) 
+    )  %>%
+  rename(`Housing Type`=htype3)
+knitr::kable(output, digits=2)
+```
+
+## Marginal Distributions (4)
+
+- % Households by Tenure
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% mutate(sumwgt=sum(wgt), sumexpwgt=sum(expwgt)) %>% 
+  group_by(tenurechr) %>%
+  summarize(`% (SP)`=100*sum(wgt)/first(sumwgt)) %>%
+  left_join(
+    acs13.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(tenurechr) %>% 
+      summarize(`% (2013 ACS1)`=100*sum(hhwt/100)/first(sumhhwt)) 
+    )  %>%
+  left_join(
+    acs14.5 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(tenurechr) %>% 
+      summarize(`% (2014 ACS5)`=100*sum(hhwt/100)/first(sumhhwt)) 
+    )  %>%
+  rename(`Tenure`=tenurechr)
+knitr::kable(output, digits=2)
+```
+
+## Marginal Distributions (5)
+
+- % Households by Age Group
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% mutate(sumwgt=sum(wgt), sumexpwgt=sum(expwgt)) %>% 
+  group_by(age_group5) %>%
+  summarize(`% (SP)`=100*sum(wgt)/first(sumwgt)) %>%
+  left_join(
+    acs13.1 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(age_group5) %>% 
+      summarize(`% (2013 ACS1)`=100*sum(hhwt/100)/first(sumhhwt)) 
+    )  %>%
+  left_join(
+    acs14.5 %>% mutate(sumhhwt=sum(hhwt/100)) %>% 
+      group_by(age_group5) %>% 
+      summarize(`% (2014 ACS5)`=100*sum(hhwt/100)/first(sumhhwt)) 
+    )  %>%
+  rename(`Age Group`=age_group5)
+knitr::kable(output, digits=2)
+```
+
+## Marginal Distributions (6)
+
+- % Households by County and Housing Type
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% group_by(countychr) %>%
+  mutate(mrgnwgt=sum(wgt)) %>%
+  group_by(countychr, htype2) %>% 
+  summarize(Data="SP weighted",
+            mrgn_pct=100*sum(wgt)/first(mrgnwgt)) %>%
+  spread(countychr, mrgn_pct) %>%
+  bind_rows(
+    acs13.1 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(countychr) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(countychr, htype2) %>% 
+      summarize(Data="2013 ACS1",
+                mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(countychr, mrgn_pct)) %>%
+  bind_rows(
+    acs14.5 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(countychr) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(countychr, htype2) %>% 
+      summarize(Data="2014 ACS5",
+                mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(countychr, mrgn_pct)) %>%
+  select(Data, `Housing Type`=htype2, one_of(county_names))
+knitr::kable(output, digits=2)
+```
+
+## Marginal Distributions (7)
+
+- % Households by County and Tenure
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% group_by(countychr) %>%
+  mutate(mrgnwgt=sum(wgt)) %>%
+  group_by(countychr, tenurechr) %>% 
+  summarize(Data="SP weighted",
+            mrgn_pct=100*sum(wgt)/first(mrgnwgt)) %>%
+  spread(countychr, mrgn_pct) %>%
+  bind_rows(
+    acs13.1 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(countychr) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(countychr, tenurechr) %>% 
+      summarize(Data="2013 ACS1",
+                mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(countychr, mrgn_pct)) %>%
+  bind_rows(
+    acs14.5 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(countychr) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(countychr, tenurechr) %>% 
+      summarize(Data="2014 ACS5",
+                mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(countychr, mrgn_pct)) %>%
+  select(Data, `Tenure`=tenurechr, one_of(county_names))
+knitr::kable(output, digits=2)
+```
+
+## Marginal Distributions (8)
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% group_by(countychr) %>%
+  mutate(mrgnwgt=sum(wgt)) %>%
+  group_by(countychr, age_group5) %>% 
+  summarize(Data="SP weighted",
+            mrgn_pct=100*sum(wgt)/first(mrgnwgt)) %>%
+  spread(countychr, mrgn_pct) %>%
+  bind_rows(
+    acs13.1 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(countychr) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(countychr, age_group5) %>% 
+      summarize(Data="2013 ACS1",
+                mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(countychr, mrgn_pct)) %>%
+  bind_rows(
+    acs14.5 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(countychr) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(countychr, age_group5) %>% 
+      summarize(Data="2014 ACS5",
+                mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(countychr, mrgn_pct)) %>%
+  select(Data, `Age Group`=age_group5, one_of(county_names))
+knitr::kable(output, digits=2, caption="% Households by County and Age Group")
+```
+
+## Marginal Distributions (9)
+
+- % Households by County, Housing Type and Tenure
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% group_by(countychr) %>%
+  mutate(mrgnwgt=sum(wgt)) %>%
+  group_by(countychr, htype2, tenurechr) %>% 
+  summarize(Data="SP weighted",
+            mrgn_pct=100*sum(wgt)/first(mrgnwgt)) %>%
+  spread(countychr, mrgn_pct) %>%
+  bind_rows(
+    acs13.1 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(countychr) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(countychr, htype2, tenurechr) %>% 
+      summarize(Data="2013 ACS1",
+                mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(countychr, mrgn_pct)) %>%
+  bind_rows(
+    acs14.5 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(countychr) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(countychr, htype2, tenurechr) %>% 
+      summarize(Data="2014 ACS5",
+                mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(countychr, mrgn_pct)) %>%
+  select(Data, `Housing Type`=htype2, Tenure=tenurechr, one_of(county_names))
+knitr::kable(output, digits=2)
+```
+
+## Marginal Distributions (10)
+
+- % Households by Housing Type and Tenure by Age Group
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% group_by(age_group5) %>%
+  mutate(mrgnwgt=sum(wgt)) %>%
+  group_by(age_group5, htype2, tenurechr) %>% 
+  summarize(Data="SP weighted",
+            mrgn_pct=100*sum(wgt)/first(mrgnwgt)) %>%
+  spread(age_group5, mrgn_pct) %>%
+  bind_rows(
+    acs13.1 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(age_group5) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(age_group5, htype2, tenurechr) %>% 
+      summarize(Data="2013 ACS1",
+                mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(age_group5, mrgn_pct)) %>%
+  bind_rows(
+    acs14.5 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(age_group5) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(age_group5, htype2, tenurechr) %>% 
+      summarize(Data="2014 ACS5",
+                mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(age_group5, mrgn_pct)) %>%
+  select(Data, `Housing Type`=htype2, Tenure=tenurechr, one_of(age_groups5))
+
+knitr::kable(output, digits=2)
+```
+
+## Dist. of Non-Wghting Vars (1)
+
+<!-- - % Households by Income Group -->
+
+```{r, echo=F, message=FALSE,warning=FALSE}
+output <- sp.wgt %>% filter(!is.na(hhinc6)) %>% 
+  mutate(mrgnn=n()) %>%
+  group_by(hhinc6) %>% 
+  summarize(`SP original`=100*n()/first(mrgnn)) %>%
+  slice(match(inccat6, hhinc6)) %>%
+  left_join(
+    sp.wgt %>% filter(!is.na(hhinc6)) %>%
+      mutate(mrgnwgt=sum(wgt)) %>%
+      group_by(hhinc6) %>% 
+      summarize(`SP weighted`=100*sum(wgt)/first(mrgnwgt)) %>%
+      slice(match(inccat6, hhinc6))
+  ) %>%
+  left_join(
+    acs13.1 %>% filter(!is.na(hhinc6)) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(hhinc6) %>% 
+      summarize(`2013 ACS1`=100*sum(hhwt)/first(mrgnwgt)) %>%
+      slice(match(inccat6, hhinc6))
+  ) %>%
+  rename(`HHIncome`=hhinc6)
+
+knitr::kable(output, digits=2, caption="% Households by Income Group")
+```
+
+## Dist. of Non-Wghting Vars (2)
+
+<!-- - % Households by Income Group by County -->
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% filter(!is.na(hhinc6)) %>% 
+  group_by(countychr) %>%
+  mutate(mrgnn=n()) %>%
+  group_by(countychr, hhinc6) %>% 
+  summarize(Stage="SP original", mrgn_pct=100*n()/first(mrgnn)) %>%
+  spread(countychr, mrgn_pct) %>%
+  slice(match(inccat6, hhinc6)) %>%
+  bind_rows(
+    sp.wgt %>% filter(!is.na(hhinc6)) %>% 
+      group_by(countychr) %>%
+      mutate(mrgnwgt=sum(wgt)) %>%
+      group_by(countychr, hhinc6) %>% 
+      summarize(Stage="SP weighted", mrgn_pct=100*sum(wgt)/first(mrgnwgt)) %>%
+      spread(countychr, mrgn_pct) %>%
+      slice(match(inccat6, hhinc6))
+  ) %>%
+  select(Stage, `HHIncome`=hhinc6, one_of(county_names))
+
+knitr::kable(output, digits=2, caption="% Households by Income Group by County (SP weighted)")
+```
+
+## Dist. of Non-Wghting Vars (2)
+
+```{r, echo=F, message=FALSE}
+output <- acs13.1 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(countychr) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(countychr, hhinc6) %>% 
+      summarize(mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(countychr, mrgn_pct) %>%
+  slice(match(inccat6, hhinc6)) %>%
+  rename(`HHIncome`=hhinc6)
+knitr::kable(output, digits=2, caption="% Households by Income Group by County (2013 ACS1)")
+```
+
+
+## Dist. of Non-Wghting Vars (4)
+
+% Tenure Status by Income
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% filter(!is.na(hhinc6)) %>% 
+  group_by(hhinc6) %>%
+  mutate(mrgnwgt=sum(wgt)) %>%
+  group_by(hhinc6, tenurechr) %>% 
+  summarize(mrgn_pct=100*sum(wgt)/first(mrgnwgt)) %>% 
+  spread(hhinc6, mrgn_pct) %>%
+  select(tenure=tenurechr, one_of(inccat6))
+knitr::kable(output, digits=2, caption="SP weighted")
+```
+
+&nbsp;
+<!-- - % Tenure Status by Income (ACS) -->
+
+```{r, echo=F, message=FALSE}
+output <- acs13.1 %>% mutate(hhwt=hhwt/100) %>%
+  group_by(hhinc6) %>%
+  mutate(mrgnwgt=sum(hhwt)) %>%
+  group_by(hhinc6, tenurechr) %>% 
+  summarize(mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+  spread(hhinc6, mrgn_pct) %>%
+  select(tenure=tenurechr, one_of(inccat6))
+knitr::kable(output, digits=2, caption="2013 ACS1")
+```
+
+## Dist. of Non-Wghting Vars (5)
+
+% Housing Type by Income
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% filter(!is.na(hhinc6)) %>% 
+  group_by(hhinc6) %>%
+  mutate(mrgnwgt=sum(wgt)) %>%
+  group_by(hhinc6, htype2) %>% 
+  summarize(mrgn_pct=100*sum(wgt)/first(mrgnwgt)) %>% 
+  spread(hhinc6, mrgn_pct) %>%
+  select(htype=htype2, one_of(inccat6))
+knitr::kable(output, digits=2, caption="SP weighted")
+```
+
+&nbsp;
+
+```{r, echo=F, message=FALSE}
+output <- acs13.1 %>% mutate(hhwt=hhwt/100) %>%
+  group_by(hhinc6) %>%
+  mutate(mrgnwgt=sum(hhwt)) %>%
+  group_by(hhinc6, htype2) %>% 
+  summarize(mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+  spread(hhinc6, mrgn_pct) %>%
+  select(htype=htype2, one_of(inccat6))
+knitr::kable(output, digits=2, caption="2013 ACS1")
+```
+
+## Dist. of Non-Wghting Vars (6)
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% filter(!is.na(hhinc6)) %>% 
+  group_by(hhinc6) %>%
+  mutate(mrgnwgt=sum(wgt)) %>%
+  group_by(hhinc6, htype2, tenurechr) %>% 
+  summarize(mrgn_pct=100*sum(wgt)/first(mrgnwgt)) %>% 
+  spread(hhinc6, mrgn_pct) %>%
+  select(`Housing Type`=htype2, tenure=tenurechr, one_of(inccat6))
+knitr::kable(output, digits=2, caption="% Housing Type & Tenure Status by Income (SP weighted)")
+```
+
+
+```{r, echo=F, message=FALSE}
+output <- acs13.1 %>% mutate(hhwt=hhwt/100) %>%
+  group_by(hhinc6) %>%
+  mutate(mrgnwgt=sum(hhwt)) %>%
+  group_by(hhinc6, htype2, tenurechr) %>% 
+  summarize(mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+  spread(hhinc6, mrgn_pct) %>%
+  select(`Housing Type`=htype2, tenure=tenurechr, one_of(inccat6))
+knitr::kable(output, digits=2, caption="2013 ACS1")
+```
+
+## Dist. of Non-Wghting Vars (7)
+
+```{r, echo=F, message=FALSE}
+output <- sp.wgt %>% filter(!is.na(hhinc6)) %>% 
+  group_by(age_group5) %>%
+  mutate(mrgnwgt=sum(wgt)) %>%
+  group_by(age_group5, hhinc6) %>% 
+  summarize(mrgn_pct=100*sum(wgt)/first(mrgnwgt)) %>%
+  spread(age_group5, mrgn_pct) %>%
+  slice(match(inccat6, hhinc6))
+knitr::kable(output, digits=2, caption = "% Households in Income Group by Age Group (SP weighted)")
+```
+
+```{r, echo=F, message=FALSE}
+output <- acs13.1 %>% mutate(hhwt=hhwt/100) %>%
+      group_by(age_group5) %>%
+      mutate(mrgnwgt=sum(hhwt)) %>%
+      group_by(age_group5, hhinc6) %>% 
+      summarize(mrgn_pct=100*sum(hhwt)/first(mrgnwgt)) %>%
+      spread(age_group5, mrgn_pct) %>%
+  slice(match(inccat6, hhinc6))
+knitr::kable(output, digits=2, caption = "2013 ACS1")
+```
+
+# Next steps
+
+## Next steps
+
+- Sampling bias
+- Options for weighting factors
+- Options for PUMS: 1-year vs 5-year
